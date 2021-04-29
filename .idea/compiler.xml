@@ -15,7 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="test2" options="-endorseddirs &quot;C:\Users\ndinh\Documents\INF 124 Internet Application Engineering\Code\Project 2\test2\target/endorsed&quot;" />
+      <module name="test2" options="-endorseddirs C:\Users\YaseminTurkkan\Desktop\124\Proj2_4\target/endorsed" />
     </option>
   </component>
 </project>
