@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="PA2-1.0-SNAPSHOT.war">
+    <root id="archive" name="FirstApp-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="test2:war exploded" />
     </root>
   </artifact>
