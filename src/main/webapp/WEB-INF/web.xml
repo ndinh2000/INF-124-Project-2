@@ -12,6 +12,11 @@
         <servlet-name>ShowListServlet</servlet-name>
         <servlet-class>ShowListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>HomeServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -24,6 +29,10 @@
         <servlet-name>ShowListServlet</servlet-name>
         <url-pattern>/ShowListServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -31,7 +40,6 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>
-            index.html
         </welcome-file>
     </welcome-file-list>
 </web-app>
