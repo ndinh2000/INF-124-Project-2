@@ -16,6 +16,14 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DogsServlet</servlet-name>
+        <servlet-class>DogsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatsServlet</servlet-name>
+        <servlet-class>CatsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
@@ -32,6 +40,14 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern></url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DogsServlet</servlet-name>
+        <url-pattern>/DogsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatsServlet</servlet-name>
+        <url-pattern>/CatsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
