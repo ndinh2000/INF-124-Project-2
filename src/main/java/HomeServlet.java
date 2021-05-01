@@ -19,7 +19,7 @@ public class HomeServlet extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT name, profile_picture FROM petstore.pet";
+            String sql = "SELECT name, age, gender, price, message, profile_picture FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
 
 
@@ -67,8 +67,16 @@ public class HomeServlet extends HttpServlet {
             writer.println("<Html> <body>");
             while (rs.next()) {
 //                writer.println(rs.getString("name"));
-//                imgPath = rs.getString("profile_picture");
-//                writer.println("</br>");
+                writer.println("<div class=\"col-3 col-s-5 featuredPets\">\n" +
+                        "                    <a href=\"../CatPgs/cat1.html\" style=\"text-decoration: none\">\n" +
+                        "                        <div style=\"height: 275px;\">\n" +
+                        "                            <img src=\"images/CatImages/"+ rs.getString("profile_picture")+"\">\n" +
+                        "                        </div>\n" +
+                        "                        <h3> "+ rs.getString("name") +"- $"+ rs.getString("price") +"</h3>\n" +
+                        "                    </a>\n" +
+                        "                    <p>  "+ rs.getString("message") +"</p>\n" +
+                        "                    <hr class=\"solid\">\n" +
+                        "                </div>");
             }
             writer.println("</div>\n" +
                     "\n" +
