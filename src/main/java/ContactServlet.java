@@ -42,7 +42,7 @@ public class ContactServlet extends HttpServlet {
                     "            <li><a href=./><h3> Home </h3></a></li>\n" +
                     "            <li><a href=./DogsServlet><h3> Dogs </h3></a></li>\n" +
                     "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
-                    "            <li><a class=\"active\" href=\"./ContactServlet\"><h3> Dogs </h3></a></li>\n" +
+                    "            <li><a class=\"active\" href=\"./ContactServlet\"><h3> Contact </h3></a></li>\n" +
                     "        </ul>\n" +
                     "    </div>\n" +
                     "\n" +
