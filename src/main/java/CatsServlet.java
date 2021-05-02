@@ -37,9 +37,9 @@ public class CatsServlet extends HttpServlet {
                     "<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                    "    <title>The Pet Shop | Dogs</title>\n" +
-                    "    <link rel=\"stylesheet\" href=\"myStyle.css\">\n" +
-                    "</head>\n" +
+                    "    <title>The Pet Shop | Home</title>\n");
+            writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() +  "/myStyle.css' />\n");
+            writer.println("</head>"+
                     "<body>\n" +
                     "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
                     "    <div id = \"top-nav-bar\">\n" +

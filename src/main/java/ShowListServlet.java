@@ -2,14 +2,23 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//@WebListener
+//class Config implements ServletContextListener {
+//    doGet();
+//}
+
 @WebServlet(name = "ShowList", value="/ShowList")
 public class ShowListServlet extends HttpServlet {
+
 
 
     @Override
@@ -30,13 +39,6 @@ public class ShowListServlet extends HttpServlet {
                 imgPath = rs.getString("profile_picture");
                 writer.println("</br>");
             }
-//            writer.println("<img src=" + imgPath +"/>");
-//            writer.println("<img src=\"../../../../pics/1.png\">");
-//            writer.println("<img src=\"../../../pics/1.png\">");
-//            writer.println("<img src=\"../../pics/1.png\">");
-//            writer.println("<img src=\"../pics/1.png\">");
-//            writer.println("<img src=\"pics/1.png\">");
-
             writer.println("</body> </Html> ");
 
         } catch (ClassNotFoundException | SQLException e) {
