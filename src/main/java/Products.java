@@ -42,7 +42,7 @@ public class Products extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT name, profile_picture FROM petstore.pet";
+            String sql = "SELECT name, profile_picture, pet_id FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
@@ -55,8 +55,9 @@ public class Products extends HttpServlet {
                 writer.println("</div>");
                 imgPath = rs.getString("profile_picture");
                 writer.println("<div>");
+                writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
                 writer.println("<img style='width: 200px;' src='" + imgPath + "'");
-//                writer.println(imgPath);
+                writer.println("</a>");
                 writer.println("</div>");
                 writer.println("</br>");
             }

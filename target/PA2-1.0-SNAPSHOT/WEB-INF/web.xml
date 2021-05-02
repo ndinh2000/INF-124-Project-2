@@ -32,6 +32,10 @@
         <servlet-name>Last5</servlet-name>
         <servlet-class>Last5</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>ProductDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>Last5</servlet-name>
         <url-pattern>/Last5</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetail</servlet-name>
+        <url-pattern>/ProductDetail/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

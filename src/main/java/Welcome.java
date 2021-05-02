@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,37 +30,46 @@ public class Welcome extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    private int id = 0;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        getID(request, response);
+        
         response.setContentType("text/html;charset=UTF-8");
-//        String url1 = "/Include1";
-//        String url1 = "/images/CatImages/cat1.jfif";
         String url1 = "/Last5";
         String url2 = "/Products";
-//        request.getRequestDispatcher("/Include1").include(request, response);
-//        request.getRequestDispatcher("/Include2").include(request, response);
 
         RequestDispatcher rd = request.getRequestDispatcher(url1);
         rd.include(request, response);
         rd = request.getRequestDispatcher(url2);
         rd.include(request, response);
-//        RequestDispatcher rd = request.getRequestDispatcher(url2);
-//        rd.include(request, response);
-//        rd = request.getRequestDispatcher(url1);
-//        rd.include(request, response);
+    }
+    
+    private synchronized void getID(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(true);
+        Integer curID = (Integer) session.getAttribute("curID");
+        
+        String heading;
 
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Welcome</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Welcome at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+        if (curID == null) {
+            session.setAttribute("curID", this.id);
+            ++this.id;
+            heading = "Welcome, New-Comer, your ID is "
+                    + session.getAttribute("curID")
+                    + ", nextID is " + this.id;
+        } else {
+            heading = "Welcome Back, your ID is "
+                    + session.getAttribute("curID")
+                    + ", nextID is " + this.id;
+        }
+        
+        PrintWriter out = response.getWriter();
+        out.println(heading);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
