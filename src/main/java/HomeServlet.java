@@ -41,6 +41,8 @@ public class HomeServlet extends HttpServlet {
                     "            <li><a href=./DogsServlet><h3> Dogs </h3></a></li>\n" +
                     "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
                     "            <li><a href=./ContactServlet><h3> Contact </h3></a></li>\n" +
+                                //Trying below for now
+                                "<li><a href=./Last5><h3> Latest Purchases </h3></a></li>\n" +
                     "        </ul>\n" +
                     "    </div>\n" +
                     "\n" +
