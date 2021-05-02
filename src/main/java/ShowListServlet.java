@@ -77,6 +77,7 @@ public class ShowListServlet extends HttpServlet {
 //        writer.println("<img src=\"./pics/1.png>\"");
 //        writer.println("<img src='" + request.getContextPath() + "/pics/1.png' >");
         writer.println("<img src='pics/1.png' >");
+//        writer.println("<img src='images/cat1.jfif' >");
         writer.println("</body> </Html> ");
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");

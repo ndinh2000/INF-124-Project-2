@@ -6,11 +6,8 @@
 
 import java.io.IOException;
 import java.io.*;
-import java.io.File;
 import java.io.PrintWriter;
-import java.io.OutputStream;
 import javax.servlet.ServletOutputStream;
-import java.sql.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ndinh
  */
-@WebServlet(urlPatterns = {"/Image"})
+@WebServlet(urlPatterns = {"/images"})
 public class Image extends HttpServlet {
 
     /**
@@ -36,6 +33,11 @@ public class Image extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        /*
+            Important: Put images inside PA2\target\PA2-1.0-SNAPSHOT
+        */
+        
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("image/jpeg");
             ServletOutputStream outStream = response.getOutputStream();
