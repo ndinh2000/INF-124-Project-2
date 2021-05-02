@@ -13,6 +13,26 @@
         <servlet-class>ShowListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ShowPet</servlet-name>
+        <servlet-class>ShowPet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayImage</servlet-name>
+        <servlet-class>DisplayImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Welcome</servlet-name>
+        <servlet-class>Welcome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Products</servlet-name>
+        <servlet-class>Products</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Last5</servlet-name>
+        <servlet-class>Last5</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>HomeServlet</servlet-class>
     </servlet>
@@ -38,6 +58,26 @@
         <url-pattern>/ShowListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ShowPet</servlet-name>
+        <url-pattern>/ShowPet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayImage</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Welcome</servlet-name>
+        <url-pattern>/Welcome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Products</servlet-name>
+        <url-pattern>/Products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Last5</servlet-name>
+        <url-pattern>/Last5</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
@@ -56,6 +96,7 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>
+            index.html
         </welcome-file>
     </welcome-file-list>
 </web-app>
