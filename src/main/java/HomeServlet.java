@@ -41,25 +41,9 @@ public class HomeServlet extends HttpServlet {
                     "            <li><a href=./DogsServlet><h3> Dogs </h3></a></li>\n" +
                     "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
                     "            <li><a href=./ContactServlet><h3> Contact </h3></a></li>\n" +
-                                //Trying below for now
-                                "<li><a href=./Last5><h3> Latest Purchases </h3></a></li>\n" +
                     "        </ul>\n" +
                     "    </div>\n" +
-                    "\n" +
-                    "    <div id=\"main\">\n" +
-                    "\n" +
-                    "        <div>\n" +
-                    "            <h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 5px;\">About Us</h3>\n" +
-                    "            <p style=\"margin-left: 34px; margin-right:34px;font-size: 20px;margin-top: 0;\">Thank you for visiting our store! We pride ourselves in providing adorable animals for loving homes. At our online store, you can check out the best animals to fit you and your family’s lifestyle. All our pets go home fully vaccinated and with pedigrees. You’re guaranteed to go home with an amazing furry-friend for life! We're currently open for online orders and accepting forms of Visa payment!</p>\n" +
-                    "        </div>\n" +
-                    "        <div>\n" +
-                    "            <h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 5px;\">Our Team</h3>\n" +
-                    "            <ul style=\"margin-left: 34px;font-size: 20px;margin-top: 0;\">\n" +
-                    "                <li>Anqi Zhong - Founder of The Pet Shop</li>\n" +
-                    "                <li>Nham N. Dinh - Chief Executive Officer</li>\n" +
-                    "                <li>Yasemin Turkkan - Chief Financial Officer</li>\n" +
-                    "            </ul>\n" +
-                    "        </div>");
+                    "\n");
 
 
             writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">Our featured pets:</h3>\n" +

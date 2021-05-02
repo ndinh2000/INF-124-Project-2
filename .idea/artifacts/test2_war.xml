@@ -8,7 +8,7 @@
       </options>
     </properties>
     <root id="archive" name="FirstApp-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="test2:war exploded" />
+      <element id="artifact" artifact-name="PA2" />
     </root>
   </artifact>
 </component>
