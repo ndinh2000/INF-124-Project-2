@@ -31,7 +31,7 @@ public class Last5 extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT p.name, p.profile_picture" +
+            String sql = "SELECT p.name, p.profile_picture, p.price" +
                     " FROM pet p, orders o" +
                     " WHERE p.pet_id = o.pet_id" +
                     " AND o.user_id = 1" +
@@ -43,18 +43,26 @@ public class Last5 extends HttpServlet {
             writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() + "/myStyle.css' />\n");
             writer.println("</head>");
             writer.println("<Html> <body>");
-            writer.println("<h2>Latest Purchases:</h2>");
+            writer.println("<div id=\"main\">");
+            writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">" +
+                            "Latest Purchases:</h3>");
+            writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
             String imgPath = "";
             while (rs.next()) {
-                writer.println("<div>");
-                writer.println(rs.getString("name"));
-                writer.println("</div>");
+                writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
+                writer.println("<a href=\"../CatPgs/PRODUCTPAGE.html\" style=\"text-decoration: none\">");
+                writer.println("<div style=\"height: 275px;\">");
                 imgPath = rs.getString("profile_picture");
-                writer.println("<div>");
-                writer.println("<img style='width: 200px;' src='" + imgPath + "'");
+                writer.println("<img src="+ imgPath +">");
+                writer.println("</div>"); //for style=height
+                writer.println("<h3>" + rs.getString("name") +
+                                " - $" + rs.getString("price") + "</h3>");
+                writer.println("</a>");
+                writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
-                writer.println("</br>");
             }
+            writer.println("</div>"); //for class=row
+            writer.println("</div>"); //for id= main
             writer.println("</body> </Html> ");
 
         } catch (ClassNotFoundException | SQLException e) {
