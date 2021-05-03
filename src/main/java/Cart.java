@@ -60,7 +60,7 @@ public class Cart extends HttpServlet {
         writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' />");
         writer.println("</head>"+
                 "<body>\n" +
-                "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
+                "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
                 "    <div id = \"top-nav-bar\">\n" +
                 "        <ul>\n" +
                 "            <li><a href=./><h3> Home </h3></a></li>\n" +
@@ -80,7 +80,7 @@ public class Cart extends HttpServlet {
 //                cart.add(pet_id); // Add the new item to the previousItems ArrayList
                 cart.put(pet_id, cart.getOrDefault(pet_id, 0) + 1);
             } else {
-                writer.println("pet_id is null");
+//                writer.println("pet_id is null");
             }
 
             // Display the current previousItems ArrayList
@@ -107,7 +107,7 @@ public class Cart extends HttpServlet {
                         Integer qty = cart.get(item);
                         String imgPath = "";
                         while (rs.next()) {
-                            total = total+rs.getFloat("price");
+                            total = total + rs.getFloat("price")*qty;
                             writer.println("<div id='main'>");
                             writer.println("<div class=\"row\" style=\"text-align: left\">\n" +
                                     "            <div class=\"col-3 col-s-5\">\n" +

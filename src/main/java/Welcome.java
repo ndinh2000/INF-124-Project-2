@@ -41,7 +41,7 @@ public class Welcome extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url1 = "/Last5";
         String url2 = "/Products";
-
+        
         RequestDispatcher rd = request.getRequestDispatcher(url1);
         rd.include(request, response);
         rd = request.getRequestDispatcher(url2);

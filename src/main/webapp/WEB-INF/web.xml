@@ -40,6 +40,22 @@
         <servlet-name>Cart</servlet-name>
         <servlet-class>Cart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DogsServlet</servlet-name>
+        <servlet-class>DogsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatsServlet</servlet-name>
+        <servlet-class>CatsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>titleHeader</servlet-name>
+        <servlet-class>titleHeader</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -79,6 +95,22 @@
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DogsServlet</servlet-name>
+        <url-pattern>/DogsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatsServlet</servlet-name>
+        <url-pattern>/CatsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>titleHeader</servlet-name>
+        <url-pattern>/titleHeader</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
