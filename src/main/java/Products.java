@@ -42,26 +42,33 @@ public class Products extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT name, profile_picture FROM petstore.pet";
+            String sql = "SELECT name, profile_picture, pet_id,price, SUBSTRING(message, 1, 65) AS message" +
+                    "       FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
             writer.println("<Html> <body>");
-            writer.println("<h2>Available Products</h2>");
+            writer.println("<div id=\"main\">");
+            writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">" +
+                    "Available Pets:</h3>");
+            writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
             String imgPath = "";
             while (rs.next()) {
-                writer.println("<div>");
-                writer.println(rs.getString("name"));
-                writer.println("</div>");
+                writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
+                writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
+                writer.println("<div style=\"height: 275px;\">");
                 imgPath = rs.getString("profile_picture");
-                writer.println("<div>");
-                writer.println("<img style='width: 200px;' src='" + imgPath + "'");
+                writer.println("<img src="+ imgPath +">");
+                writer.println("</div>"); //for style=height
+                writer.println("<h3>" + rs.getString("name") +
+                        " - $" + rs.getString("price") + "</h3>");
+                writer.println("</a>");
+                writer.println("<p>"+ rs.getString("message") +"...</p>");
+                writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
-                writer.println("</br>");
             }
-
-            writer.println("<img src='./images/CatImages/cat1.jfif' >");
-
+            writer.println("</div>"); //for class=row
+            writer.println("</div>"); //for id= main
             writer.println("</body> </Html> ");
 
         } catch (ClassNotFoundException | SQLException e) {

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ndinh
  */
+@WebServlet(name = "Last5", value="/Last5")
 public class Last5 extends HttpServlet {
 
 
@@ -29,7 +31,7 @@ public class Last5 extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
+                    + "petstore", "root", "anqizhong1999.");
             Statement stmt = con.createStatement();
             String sql = "SELECT p.name, p.profile_picture, p.price" +
                     " FROM pet p, orders o" +

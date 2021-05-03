@@ -44,6 +44,14 @@
         <servlet-name>CatsServlet</servlet-name>
         <servlet-class>CatsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>ProductDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Cart</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
@@ -71,7 +79,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Products</servlet-name>
-        <url-pattern>/Products</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Last5</servlet-name>
@@ -79,7 +87,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/HomeServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DogsServlet</servlet-name>
@@ -88,6 +96,14 @@
     <servlet-mapping>
         <servlet-name>CatsServlet</servlet-name>
         <url-pattern>/CatsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetail</servlet-name>
+        <url-pattern>/ProductDetail/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

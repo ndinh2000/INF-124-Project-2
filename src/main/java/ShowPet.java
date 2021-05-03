@@ -33,7 +33,7 @@ public class ShowPet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
+                    + "petstore", "root", "anqizhong1999.");
             Statement stmt = con.createStatement();
             String sql = "SELECT name, profile_picture FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
