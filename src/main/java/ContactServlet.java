@@ -36,7 +36,7 @@ public class ContactServlet extends HttpServlet {
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() +  "/myStyle.css' />\n");
             writer.println("</head>"+
                     "<body>\n" +
-                    "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
+                    "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
                     "    <div id = \"top-nav-bar\">\n" +
                     "        <ul>\n" +
                     "            <li><a href=./><h3> Home </h3></a></li>\n" +
@@ -68,7 +68,7 @@ public class ContactServlet extends HttpServlet {
                     "            <p style=\"margin-left: 0.5in; margin-right: 0.5in;font-size: 20px;\"> 5365 Alton Pkwy, Irvine, CA 92604 </p>\n" +
                     "            <p style=\"margin-left: 0.5in; margin-right: 0.5in;font-size: 20px;\"> Hours: 10 am - 7 pm every day</p>\n" +
                     "            <div class=\"col-3 col-s-5 img-container\" style=\"width:100%; text-align: center;\">\n" +
-                    "                <img style = \"max-width: 100%; max-height: 100%; object-fit: contain;\"; src=\"images/Map.jpg\">\n" +
+                    "                <img style = \"max-width: 100%; max-height: 100%; object-fit: contain;\"; src=\"./images/Logo/Map.jpg\">\n" +
                     "            </div>\n" +
                     "\n" +
                     "        </div>\n" +

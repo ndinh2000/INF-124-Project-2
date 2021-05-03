@@ -28,7 +28,8 @@ public class DogsServlet extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT name, age, gender, price, message, profile_picture FROM petstore.pet WHERE pet_id LIKE 'D%'";
+            String sql = "SELECT name, age, gender, price, SUBSTRING(message, 1, 65) AS message, profile_picture " +
+                    "FROM petstore.pet WHERE pet_id LIKE 'D%'";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = resp.getWriter();
@@ -41,7 +42,7 @@ public class DogsServlet extends HttpServlet {
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() +  "/myStyle.css' />\n");
             writer.println("</head>"+
                     "<body>\n" +
-                    "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
+                    "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
                     "    <div id = \"top-nav-bar\">\n" +
                     "        <ul>\n" +
                     "            <li><a href=./><h3> Home </h3></a></li>\n" +
@@ -52,27 +53,27 @@ public class DogsServlet extends HttpServlet {
                     "    </div>\n" +
                     "\n" +
                     "    <div id=\"main\">\n" +
-                    "        <!-- <div class=\"featuredPets\"> -->\n" +
                     "            <div class=\"row\">");
 
 
+            String imgPath = "";
             while (rs.next()) {
-//                writer.println(rs.getString("name"));
-                writer.println("<div class=\"col-3 col-s-5 featuredPets\">\n" +
-                        "                    <a href=\"../DogPgs/dog1.html\" style=\"text-decoration: none\">\n" +
-                        "                        <div style=\"height: 275px;\">\n" +
-                        "                            <img src=\"images/DogImages/"+ rs.getString("profile_picture")+"\">\n" +
-                        "                        </div>\n" +
-                        "                        <h3> "+ rs.getString("name") +"- $"+ rs.getString("price") +"</h3>\n" +
-                        "                    </a>\n" +
-                        "                    <p>  "+ rs.getString("message") +"</p>\n" +
-                        "                    <hr class=\"solid\">\n" +
-                        "                </div>");
+                writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
+                writer.println("<a href=\"../CatPgs/PRODUCTPAGE.html\" style=\"text-decoration: none\">");
+                writer.println("<div style=\"height: 275px;\">");
+                imgPath = rs.getString("profile_picture");
+                writer.println("<img src="+ imgPath +">");
+                writer.println("</div>"); //for style=height
+                writer.println("<h3>" + rs.getString("name") +
+                        " - $" + rs.getString("price") + "</h3>");
+                writer.println("</a>");
+                writer.println("<p>"+ rs.getString("message") +"...</p>");
+                writer.println("<hr class=\"solid\">");
+                writer.println("</div>");
             }
-            writer.println("</div>\n" +
-                    "    </div>\n" +
-                    "</body>\n" +
-                    "</html>");
+            writer.println("</div>"); //for class=row
+            writer.println("</div>"); //for id= main
+            writer.println("</body> </Html> ");
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

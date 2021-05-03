@@ -42,7 +42,7 @@ public class HomeServlet extends HttpServlet {
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() + "/myStyle.css' />\n");
             writer.println("</head>" +
                     "<body>\n" +
-                    "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
+                    "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
                     "    <div id = \"top-nav-bar\">\n" +
                     "        <ul>\n" +
                     "            <li><a class=\"active\" href=\"./\"><h3> Home </h3></a></li>\n" +
