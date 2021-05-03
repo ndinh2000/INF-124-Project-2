@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -43,7 +44,7 @@ public class ProductDetail extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "anqizhong1999.");
+                    + "petstore", "root", "root");
             Statement stmt = con.createStatement();
             String sql = "SELECT name, age,gender,price,pet_id,message,profile_picture FROM pet "
                     + "WHERE pet_id = '" + pet_id + "';";
@@ -51,26 +52,18 @@ public class ProductDetail extends HttpServlet {
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
-            writer.println("<!DOCTYPE html><html lang=\"en\">\n" +
-                    "<head>\n" +
+            writer.println("<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop</title>\n");
             writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' />");
-            writer.println("</head>"+
-                    "<body>\n" +
-                    "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
-                    "    <div id = \"top-nav-bar\">\n" +
-                    "        <ul>\n" +
-                    "            <li><a href=./><h3> Home </h3></a></li>\n" +
-                    "            <li><a href=./DogsServlet><h3> Dogs </h3></a></li>\n" +
-                    "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
-                    "            <li><a href=./ContactServlet><h3> Contact </h3></a></li>\n" +
-                    //Trying below for now
-                    "<li><a href=./Products><h3> Latest Purchases </h3></a></li>\n" +
-                    "        </ul>\n" +
-                    "    </div>\n" +
-                    "</body>\n");
+
+            response.setContentType("text/html;charset=UTF-8");
+            String url1 = "/titleHeader";
+            RequestDispatcher rd = request.getRequestDispatcher(url1);
+            rd.include(request, response);
+
+
             writer.println("<Html> <body>");
 //            writer.println("<h2>" + petID + "</h2>");
 

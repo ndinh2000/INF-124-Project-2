@@ -52,6 +52,10 @@
         <servlet-name>Cart</servlet-name>
         <servlet-class>Cart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>titleHeader</servlet-name>
+        <servlet-class>titleHeader</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
@@ -104,6 +108,10 @@
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>titleHeader</servlet-name>
+        <url-pattern>/titleHeader</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
