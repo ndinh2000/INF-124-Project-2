@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,20 +41,44 @@ public class Cart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String pet_id = request.getParameter("pet_id");
         HttpSession session = request.getSession();
-        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+//        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+        HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+        
         if (cart == null) {
             // Add the newly created ArrayList to session, so that it could be retrieved next time
-            cart = new ArrayList<>();
+//            cart = new ArrayList<>();
+            cart = new HashMap<String, Integer>();
             session.setAttribute("cart", cart);
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
+        writer.println("<!DOCTYPE html><html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "    <title>The Pet Shop</title>\n");
+        writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' />");
+        writer.println("</head>"+
+                "<body>\n" +
+                "    <div id=\"header\"><h1><img src=\"images/shopLogo.png\"></h1></div>\n" +
+                "    <div id = \"top-nav-bar\">\n" +
+                "        <ul>\n" +
+                "            <li><a href=./><h3> Home </h3></a></li>\n" +
+                "            <li><a href=./DogsServlet><h3> Dogs </h3></a></li>\n" +
+                "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
+                "            <li><a href=./ContactServlet><h3> Contact </h3></a></li>\n" +
+                //Trying below for now
+                "<li><a href=./Products><h3> Latest Purchases </h3></a></li>\n" +
+                "        </ul>\n" +
+                "    </div>\n" +
+                "</body>\n");
         writer.println("<Html> <body>");
         synchronized (cart) {
             if (pet_id != null && "POST".equals(request.getMethod())) {
-                writer.println("<h2>Added to Cart!<h2>");
-                writer.println("pet_id is not null: " + pet_id);
-                cart.add(pet_id); // Add the new item to the previousItems ArrayList
+                writer.println("<h2 style='text-align:center;'>Your Product is Added to the Cart!<h2>");
+//                writer.println("pet_id is not null: " + pet_id);
+//                cart.add(pet_id); // Add the new item to the previousItems ArrayList
+                cart.put(pet_id, cart.getOrDefault(pet_id, 0) + 1);
             } else {
                 writer.println("pet_id is null");
             }
@@ -63,7 +88,7 @@ public class Cart extends HttpServlet {
                 writer.println("<i>No items</i>");
             } else {
 //                writer.println("<ul>");
-                writer.println("<h2>Your Cart:</h2>");
+                writer.println("<h2 style='padding-left:2%;'>Your Cart:</h2>");
                 try {
 //                    writer.println("<i>Trying to connect to sql server</i>");
                     Class.forName("com.mysql.jdbc.Driver");
@@ -71,25 +96,49 @@ public class Cart extends HttpServlet {
                             + "petstore", "root", "root");
                     Statement stmt = con.createStatement();
 //                    writer.println("<i>Connected to sql server</i>");
-                    for (String item : cart) {
+                    float total = 0;
+//                    for (String item : cart) {
+                    for (String item : cart.keySet()) {
 //                    writer.println("<li>" + item);
-                        String sql = "SELECT name, profile_picture" +
-                                    " FROM pet" +
-                                    " WHERE pet_id = '" + item + "';";
+                        String sql = "SELECT name, price,profile_picture" +
+                                " FROM pet" +
+                                " WHERE pet_id = '" + item + "';";
                         ResultSet rs = stmt.executeQuery(sql);
+                        Integer qty = cart.get(item);
                         String imgPath = "";
                         while (rs.next()) {
-                            writer.println("<div>");
-                            writer.println(rs.getString("name"));
-                            writer.println("</div>");
+                            total = total+rs.getFloat("price");
+                            writer.println("<div id='main'>");
+                            writer.println("<div class=\"row\" style=\"text-align: left\">\n" +
+                                    "            <div class=\"col-3 col-s-5\">\n" +
+                                    "                <div class=\"profile\">");
                             imgPath = rs.getString("profile_picture");
-                            writer.println("<div>");
-                            writer.println("<img style='width: 200px;' src='" + imgPath + "'");
-                            writer.println("</div>");
-                            writer.println("</br>");
+                            writer.println("<img src='"+imgPath+"'>");
+                            writer.println( "</div>\n" +
+                                    "            </div>\n" +
+                                    "            <div class=\"col-3 col-s-5\" style=\"text-align: left; padding-top: 35px;\">" +
+                                    "                <h2>Name: "+ rs.getString("name")+"</h2>\n" +
+                                    "                <h2>Price: $"+rs.getFloat("price")+"</h2>\n" +
+                                    "                <h2>Qty: "+qty+"</h2>\n" +
+                                    "            </div>\n" +
+                                    "        </div>");
+//                            writer.println("<div>");
+//                            writer.println(rs.getString("name"));
+//                            writer.println("</div>");
+//                            imgPath = rs.getString("profile_picture");
+//                            writer.println("<div>");
+//                            writer.println("<img style='width: 200px;' src='" + imgPath + "'");
+//                            writer.println("</div>");
+//                            writer.println("</br>");
                         }
-//                        writer.println("</body> </Html> ");
+                        writer.println("</body> </Html> ");
                     }
+                    writer.println("<hr class='solid'>");
+                    writer.println("<div class='row' style='text-align:right;'>\n"+
+                            "            <div class=\"col-6 col-s-5\">\n" +
+                            "<h2 style='text-align:left;padding-left:52%;'>Total: $"+total+"</h2></div>\n"+
+                            "<div class='col-6 col-s-5 addToCartButton' style='text-align:left;padding-top:20px;'><button>Proceed To Checkout</button>\n"+
+                            "</div></div>");
                 } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
