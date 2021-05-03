@@ -21,10 +21,8 @@ public class HomeServlet extends HttpServlet {
             String url1 = "/Last5";
             String url2 = "/Products";
 
-            RequestDispatcher rd = req.getRequestDispatcher(url1);
-            rd.include(req, resp);
-            rd = req.getRequestDispatcher(url2);
-            rd.include(req, resp);
+
+
 
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -55,32 +53,15 @@ public class HomeServlet extends HttpServlet {
                     "    </div>\n" +
                     "\n");
 
+            writer.println("</html>");
+
+            RequestDispatcher rd = req.getRequestDispatcher(url1);
+            rd.include(req, resp);
+            rd = req.getRequestDispatcher(url2);
+            rd.include(req, resp);
 
 
-            writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">Our featured pets:</h3>\n" +
-                    "        <!-- <div class=\"featuredPets\"> -->\n" +
-                    "            <div class=\"row\" style=\"padding-top: 0;\">");
-            writer.println("<Html> <body>");
-//            RequestDispatcher rd = req.getRequestDispatcher(url1);
-//            rd.include(req, resp);
-//            rd = req.getRequestDispatcher(url2);
-//            rd.include(req, resp);
-//            while (rs.next()) {
-////                writer.println(rs.getString("name"));
-//                writer.println("<div class=\"col-3 col-s-5 featuredPets\">\n" +
-//                        "                    <a href=\"../CatPgs/cat1.html\" style=\"text-decoration: none\">\n" +
-//                        "                        <div style=\"height: 275px;\">\n" +
-//                        "                            <img src=\"images/CatImages/" + rs.getString("profile_picture") + "\">\n" +
-//                        "                        </div>\n" +
-//                        "                        <h3> " + rs.getString("name") + "- $" + rs.getString("price") + "</h3>\n" +
-//                        "                    </a>\n" +
-//                        "                    <p>  " + rs.getString("message") + "</p>\n" +
-//                        "                    <hr class=\"solid\">\n" +
-//                        "                </div>");
-//            }
-            writer.println("</div>\n" +"\n" +" </div>\n");
-            writer.println("</body>\n" +
-                    "</html>");
+
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

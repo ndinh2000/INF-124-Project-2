@@ -56,18 +56,11 @@ public class Products extends HttpServlet {
                 imgPath = rs.getString("profile_picture");
                 writer.println("<div>");
                 writer.println("<img style='width: 200px;' src='" + imgPath + "'");
-//                writer.println(imgPath);
                 writer.println("</div>");
                 writer.println("</br>");
             }
-//            writer.println("<img src='./images/1.png'>");
-//            writer.println("<img src='./images/cat1.jpg' >");
+
             writer.println("<img src='./images/CatImages/cat1.jfif' >");
-//            writer.println("<img src=\"../../../../pics/1.png\">");
-//            writer.println("<img src=\"../../../pics/1.png\">");
-//            writer.println("<img src=\"../../pics/1.png\">");
-//            writer.println("<img src=\"../pics/1.png\">");
-//            writer.println("<img src=\"pics/1.png\">");
 
             writer.println("</body> </Html> ");
 

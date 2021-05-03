@@ -16,8 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ *
+ * @author ndinh
+ */
 public class Last5 extends HttpServlet {
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,15 +31,17 @@ public class Last5 extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT p.name, p.profile_picture, p.price, p.message" +
-                        " FROM pet p, orders o" +
-                        " WHERE p.pet_id = o.pet_id" +
-                        " AND o.user_id = 1" +
-                        " LIMIT 5";
+            String sql = "SELECT p.name, p.profile_picture" +
+                    " FROM pet p, orders o" +
+                    " WHERE p.pet_id = o.pet_id" +
+                    " AND o.user_id = 1" +
+                    " LIMIT 5";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
-
+            writer.println("<head>");
+            writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() + "/myStyle.css' />\n");
+            writer.println("</head>");
             writer.println("<Html> <body>");
             writer.println("<h2>Latest Purchases:</h2>");
             String imgPath = "";
@@ -46,7 +52,6 @@ public class Last5 extends HttpServlet {
                 imgPath = rs.getString("profile_picture");
                 writer.println("<div>");
                 writer.println("<img style='width: 200px;' src='" + imgPath + "'");
-//                writer.println(imgPath);
                 writer.println("</div>");
                 writer.println("</br>");
             }
@@ -55,6 +60,26 @@ public class Last5 extends HttpServlet {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
 
 }
