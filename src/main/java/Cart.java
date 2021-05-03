@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,10 +41,13 @@ public class Cart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String pet_id = request.getParameter("pet_id");
         HttpSession session = request.getSession();
-        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+//        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+        HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+
         if (cart == null) {
             // Add the newly created ArrayList to session, so that it could be retrieved next time
-            cart = new ArrayList<>();
+//            cart = new ArrayList<>();
+            cart = new HashMap<String, Integer>();
             session.setAttribute("cart", cart);
         }
         response.setContentType("text/html;charset=UTF-8");
@@ -73,7 +77,8 @@ public class Cart extends HttpServlet {
             if (pet_id != null && "POST".equals(request.getMethod())) {
                 writer.println("<h2 style='text-align:center;'>Your Product is Added to the Cart!<h2>");
 //                writer.println("pet_id is not null: " + pet_id);
-                cart.add(pet_id); // Add the new item to the previousItems ArrayList
+//                cart.add(pet_id); // Add the new item to the previousItems ArrayList
+                cart.put(pet_id, cart.getOrDefault(pet_id, 0) + 1);
             } else {
                 writer.println("pet_id is null");
             }
@@ -92,12 +97,14 @@ public class Cart extends HttpServlet {
                     Statement stmt = con.createStatement();
 //                    writer.println("<i>Connected to sql server</i>");
                     float total = 0;
-                    for (String item : cart) {
+//                    for (String item : cart) {
+                    for (String item : cart.keySet()) {
 //                    writer.println("<li>" + item);
                         String sql = "SELECT name, price,profile_picture" +
                                 " FROM pet" +
                                 " WHERE pet_id = '" + item + "';";
                         ResultSet rs = stmt.executeQuery(sql);
+                        Integer qty = cart.get(item);
                         String imgPath = "";
                         while (rs.next()) {
                             total = total+rs.getFloat("price");
@@ -112,6 +119,7 @@ public class Cart extends HttpServlet {
                                     "            <div class=\"col-3 col-s-5\" style=\"text-align: left; padding-top: 35px;\">" +
                                     "                <h2>Name: "+ rs.getString("name")+"</h2>\n" +
                                     "                <h2>Price: $"+rs.getFloat("price")+"</h2>\n" +
+                                    "                <h2>Qty: "+qty+"</h2>\n" +
                                     "            </div>\n" +
                                     "        </div>");
 //                            writer.println("<div>");

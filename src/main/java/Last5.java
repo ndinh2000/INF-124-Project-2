@@ -33,7 +33,7 @@ public class Last5 extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "anqizhong1999.");
             Statement stmt = con.createStatement();
-            String sql = "SELECT p.name, p.profile_picture, p.price" +
+            String sql = "SELECT p.pet_id,p.name, p.profile_picture, p.price" +
                     " FROM pet p, orders o" +
                     " WHERE p.pet_id = o.pet_id" +
                     " AND o.user_id = 1" +
@@ -52,7 +52,7 @@ public class Last5 extends HttpServlet {
             String imgPath = "";
             while (rs.next()) {
                 writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
-                writer.println("<a href=\"../CatPgs/PRODUCTPAGE.html\" style=\"text-decoration: none\">");
+                writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
                 writer.println("<div style=\"height: 275px;\">");
                 imgPath = rs.getString("profile_picture");
                 writer.println("<img src="+ imgPath +">");

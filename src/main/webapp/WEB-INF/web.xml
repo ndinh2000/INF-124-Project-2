@@ -79,7 +79,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Products</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/Products</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Last5</servlet-name>
@@ -87,7 +87,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/HomeServlet</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DogsServlet</servlet-name>

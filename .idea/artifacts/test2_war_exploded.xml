@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="PA2">
+  <artifact type="exploded-war" name="test2:war exploded">
     <output-path>$PROJECT_DIR$/target/FirstApp-1.0-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
