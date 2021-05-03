@@ -7,4 +7,5 @@ Welcome.class
 Products.class
 HelloServlet.class
 ShowListServlet.class
+Cart.class
 DisplayImage.class

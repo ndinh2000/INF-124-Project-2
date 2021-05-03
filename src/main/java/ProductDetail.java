@@ -38,14 +38,14 @@ public class ProductDetail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String petID = request.getParameter("pet_id");
+        String pet_id = request.getParameter("pet_id");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
             String sql = "SELECT name, profile_picture FROM pet "
-                        + "WHERE pet_id = '" + petID + "';";
+                        + "WHERE pet_id = '" + pet_id + "';";
 //            writer.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -64,7 +64,12 @@ public class ProductDetail extends HttpServlet {
 //                writer.println("<img style='width: 200px;' src='./images/CatImages/cat1.jfif>");
                 writer.println("</div>");
                 writer.println("</br>");
-                writer.println("<button action='/AddToCart/" + petID + "'>Add to Cart</button>");
+//                writer.println("<button     action=/PA2/Cart?pet_id=" + pet_id + ">Add to Cart</button>");
+//                writer.println("<button onclick=\"window.location=\'/PA2/Cart?pet_id=" + pet_id + "';\";>Add to Cart</button>");
+                writer.println("<form action=/PA2/Cart method='post'>");
+//                writer.println("<input type='submit' name='pet_id' value='" + pet_id + "' />");
+                writer.println("<button name='pet_id' value='" + pet_id + "'>Add to Cart</button>");
+                writer.println("</form>");
             }
             writer.println("</body> </Html> ");
 //

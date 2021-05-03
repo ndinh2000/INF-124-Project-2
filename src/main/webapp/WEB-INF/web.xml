@@ -36,6 +36,10 @@
         <servlet-name>ProductDetail</servlet-name>
         <servlet-class>ProductDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Cart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/ProductDetail/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
