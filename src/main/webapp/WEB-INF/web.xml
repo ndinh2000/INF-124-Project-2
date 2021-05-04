@@ -52,6 +52,10 @@
         <servlet-name>Cart</servlet-name>
         <servlet-class>Cart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>Checkout</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
@@ -75,7 +79,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Welcome</servlet-name>
-        <url-pattern>/Welcome</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Products</servlet-name>
@@ -87,7 +91,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/HomeServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DogsServlet</servlet-name>
@@ -104,6 +108,10 @@
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

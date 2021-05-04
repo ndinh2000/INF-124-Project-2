@@ -1,0 +1,157 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import java.util.HashMap;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author ndinh
+ */
+@WebServlet(urlPatterns = {"/Checkout"})
+public class Checkout extends HttpServlet {
+
+//    private Object ClassNotFoundException;
+//    private Object SQLException;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession(true);
+        Integer curID = (Integer) session.getAttribute("curID");
+        HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+//        if (cart == null) {
+//            // Add the newly created ArrayList to session, so that it could be retrieved next time
+////            cart = new ArrayList<>();
+//            cart = new HashMap<String, Integer>();
+//            session.setAttribute("cart", cart);
+//        }
+//        synchronized (cart) {
+//
+//        }
+        synchronized (cart) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
+                        + "petstore", "root", "anqizhong1999.");
+                String fname = request.getParameter("fname");
+                String lname = request.getParameter("lname");
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("clientEmail");
+                String creditCard = request.getParameter("credit-card");
+                String expireMM = request.getParameter("expireMM");
+                String expireYY = request.getParameter("expireYY");
+                String address = request.getParameter("address");
+                String state = request.getParameter("state");
+                String zip = request.getParameter("zip");
+                String shippingMethod = request.getParameter("shipping-method");
+
+                PrintWriter writer = response.getWriter();
+                writer.println(curID);
+                writer.println(fname);
+                writer.println(lname);
+                writer.println(phone);
+                writer.println(email);
+                writer.println(creditCard);
+                writer.println(expireMM);
+                writer.println(expireYY);
+                writer.println(address);
+                writer.println(state);
+                writer.println(zip);
+                writer.println(shippingMethod);
+
+                Statement stmt = con.createStatement();
+                for(String item: cart.keySet())
+                {
+                    String sql = "SELECT pet_id, price" +
+                            " FROM pet" +
+                            " WHERE pet_id = '" + item + "';";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    Integer qty = cart.get(item);
+                    while(rs.next())
+                    {
+                        stmt.executeUpdate("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last) VALUE ('"+curID+"','"+rs.getString("pet_id")+"','"+qty+"','"+rs.getFloat("price")+"','"+fname+"','"+lname+"')");
+
+                    }
+                }
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

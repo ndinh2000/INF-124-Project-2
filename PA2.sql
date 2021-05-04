@@ -24,26 +24,36 @@ CREATE TABLE `Pet` (
 -- Table structure for table `Order`
 --
 
--- CREATE TABLE `Order` (
---                          `order_id` int NOT NULL AUTO_INCREMENT,
---                          `user_id` int NOT NULL,
---                          `pet_id` varchar(10) NOT NULL,
---                          `price` float NOT NULL,
---                          `name_first` varchar(50) NOT NULL,
---                          `name_last` varchar(50) NOT NULL,
---                          `email` varchar(100) NOT NULL,
---                          `address_country` varchar(30) NOT NULL,
---                          `address_zipcode` varchar(30) DEFAULT NULL,
---                          `address_state` varchar(30) DEFAULT NULL,
---                          `address_city` varchar(30) NOT NULL,
---                          `address_street` varchar(30) NOT NULL,
---                          `order_time` datetime NOT NULL,
---                          `card_number` varchar(30) NOT NULL,
---                          `expiration_date` datetime NOT NULL,
---                          shipping_method enum('ground', 'first_overnight', 'two_days'),
---                          PRIMARY KEY (`order_id`),
---                          CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
--- );
+# CREATE TABLE `Order` (
+#                          `order_id` int NOT NULL AUTO_INCREMENT,
+#                          `user_id` int NOT NULL,
+#                          `pet_id` varchar(10) NOT NULL,
+#                          `qty` int NOT NULL,
+#                          `price` float NOT NULL,
+#                          `name_first` varchar(50) NOT NULL,
+#                          `name_last` varchar(50) NOT NULL,
+#                          `email` varchar(100) NOT NULL,
+#                          `address_country` varchar(30) NOT NULL,
+#                          `address_zipcode` varchar(30) DEFAULT NULL,
+#                          `address_state` varchar(30) DEFAULT NULL,
+#                          `address_city` varchar(30) NOT NULL,
+#                          `address_street` varchar(30) NOT NULL,
+#                          `order_time` datetime NOT NULL,
+#                          `card_number` varchar(30) NOT NULL,
+#                          `expiration_date` datetime NOT NULL,
+#                          shipping_method enum('ground', 'first_overnight', 'two_days'),
+#                          PRIMARY KEY (`user_id`),
+#                          CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
+# );
+
+CREATE TABLE `Order`(
+                        `user_id` int NOT NULL,
+                        `pet_id` varchar(10) NOT NULL,
+                        `qty` int NOT NULL,
+                        `price` float NOT NULL,
+                        `name_first` varchar(50) NOT NULL,
+                        `name_last` varchar(50) NOT NULL
+);
 
 CREATE TABLE `Orders` (
                          `order_id` int NOT NULL AUTO_INCREMENT,
