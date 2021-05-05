@@ -53,8 +53,8 @@
         <servlet-class>Cart</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>titleHeader</servlet-name>
-        <servlet-class>titleHeader</servlet-class>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>Checkout</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -110,8 +110,8 @@
         <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>titleHeader</servlet-name>
-        <url-pattern>/titleHeader</url-pattern>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

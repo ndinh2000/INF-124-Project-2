@@ -29,7 +29,7 @@ public class Last5 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
@@ -47,7 +47,7 @@ public class Last5 extends HttpServlet {
             writer.println("<Html> <body>");
             writer.println("<div id=\"main\">");
             writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">" +
-                            "Latest Purchases:</h3>");
+                    "Latest Purchases:</h3>");
             writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
             String imgPath = "";
             while (rs.next()) {
@@ -58,7 +58,7 @@ public class Last5 extends HttpServlet {
                 writer.println("<img src="+ imgPath +">");
                 writer.println("</div>"); //for style=height
                 writer.println("<h3>" + rs.getString("name") +
-                                " - $" + rs.getString("price") + "</h3>");
+                        " - $" + rs.getString("price") + "</h3>");
                 writer.println("</a>");
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
