@@ -42,8 +42,8 @@ public class Products extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
-            String sql = "SELECT name, profile_picture, pet_id,price, SUBSTRING(message, 1, 65) AS message" +
-                    "       FROM petstore.pet";
+            String sql = "SELECT pet_id,name, age, gender, price, SUBSTRING(message, 1, 65) AS message, profile_picture " +
+                    "FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();

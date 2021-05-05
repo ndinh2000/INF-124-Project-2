@@ -31,7 +31,7 @@ public class Last5 extends HttpServlet {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "anqizhong1999.");
+                    + "petstore", "root", "root");
             Statement stmt = con.createStatement();
             String sql = "SELECT p.pet_id,p.name, p.profile_picture, p.price" +
                     " FROM pet p, orders o" +
