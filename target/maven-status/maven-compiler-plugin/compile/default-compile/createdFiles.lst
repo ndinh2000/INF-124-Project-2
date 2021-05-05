@@ -9,6 +9,7 @@ DogsServlet.class
 JoinListServlet.class
 HomeServlet.class
 titleHeader.class
+HandleRating.class
 Image.class
 HelloServlet.class
 ShowListServlet.class

@@ -56,6 +56,10 @@
         <servlet-name>titleHeader</servlet-name>
         <servlet-class>titleHeader</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HandleRating</servlet-name>
+        <servlet-class>HandleRating</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>titleHeader</servlet-name>
         <url-pattern>/titleHeader</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleRating</servlet-name>
+        <url-pattern>/HandleRating</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

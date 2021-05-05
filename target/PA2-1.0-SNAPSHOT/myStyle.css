@@ -244,14 +244,22 @@ img {
     opacity: 0.4
 }
 
-.fa-star {
+.rate-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.rate-container > i {
     color: grey;
 }
 
-.fa-star:hover {
-    color: orange;
+.rate-container > i:HOVER,
+.rate-container > i:HOVER ~ i {
+    color: gold;
 }
 
-.checked {
-    color: orange;
+.star {
+    font-size: 48px;
+    padding: 5px;
 }

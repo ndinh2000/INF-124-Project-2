@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,7 +51,7 @@ public class ProductDetail extends HttpServlet {
                     + "WHERE pet_id = '" + pet_id + "';";
 //            writer.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
-
+            
             PrintWriter writer = response.getWriter();
             writer.println("<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
@@ -68,7 +69,12 @@ public class ProductDetail extends HttpServlet {
 //            writer.println("<h2>" + petID + "</h2>");
 
             String imgPath = "";
+            HttpSession session = request.getSession(true);
             while (rs.next()) {
+                Integer curPrice = (Integer) session.getAttribute(rs.getString("pet_id"));
+                if (curPrice == null) {
+                    session.setAttribute(rs.getString("pet_id"), rs.getFloat("price"));
+                }
                 writer.println("<div id='main'>");
                 writer.println("<div class=\"row\" style=\"text-align: left\">\n" +
                         "            <div class=\"col-3 col-s-5\">\n" +

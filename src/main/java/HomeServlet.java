@@ -32,6 +32,7 @@ public class HomeServlet extends HttpServlet {
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop | Home</title>\n");
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() + "/myStyle.css' />\n");
+//            writer.println("<link rel='stylesheet' type='text/css' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />\n");
             writer.println("</head>" +
                     "<body>\n" +
                     "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
@@ -46,6 +47,14 @@ public class HomeServlet extends HttpServlet {
                     "\n");
 
             writer.println("</html>");
+            
+            writer.println("<div class=\"rating\">\n" +
+"            <input type=\"radio\" name=\"rating\" value=\"5\" id=\"5\" onchange=\"javascript:alert(5)\"><label for=\"5\">★</label>\n" +
+"            <input type=\"radio\" name=\"rating\" value=\"4\" id=\"4\" onchange=\"javascript:alert(4)\"><label for=\"4\">★</label>\n" +
+"            <input type=\"radio\" name=\"rating\" value=\"3\" id=\"3\" onchange=\"javascript:alert(3)\"><label for=\"3\">★</label>\n" +
+"            <input type=\"radio\" name=\"rating\" value=\"2\" id=\"2\" onchange=\"javascript:alert(2)\" checked><label for=\"2\">★</label>\n" +
+"            <input type=\"radio\" name=\"rating\" value=\"1\" id=\"1\" onchange=\"javascript:alert(1)\"><label for=\"1\">★</label>\n" +
+"        </div>");
 
 
             resp.setContentType("text/html;charset=UTF-8");
