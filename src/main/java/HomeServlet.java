@@ -8,26 +8,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "HomeServlet", value="/HomeServlet")
 public class HomeServlet extends HttpServlet {
 
 
+    private int id=0;
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
+            getID(req, resp);
             resp.setContentType("text/html;charset=UTF-8");
             String url1 = "/Last5";
             String url2 = "/Products";
 
 
-
-
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
+                    + "petstore", "root", "anqizhong1999.");
             Statement stmt = con.createStatement();
             String sql = "SELECT name, age, gender, price, message, profile_picture FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
@@ -66,6 +65,29 @@ public class HomeServlet extends HttpServlet {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+    private synchronized void getID(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(true);
+        Integer curID = (Integer) session.getAttribute("curID");
+
+        String heading;
+
+        if (curID == null) {
+            session.setAttribute("curID", this.id);
+            ++this.id;
+            heading = "Welcome, New-Comer, your ID is "
+                    + session.getAttribute("curID")
+                    + ", nextID is " + this.id;
+        } else {
+            heading = "Welcome Back, your ID is "
+                    + session.getAttribute("curID")
+                    + ", nextID is " + this.id;
+        }
+
+        PrintWriter out = response.getWriter();
+        out.println(heading);
     }
 
 

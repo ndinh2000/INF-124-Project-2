@@ -7,6 +7,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -83,19 +84,61 @@ public class Checkout extends HttpServlet {
                 writer.println(zip);
                 writer.println(shippingMethod);
 
-                Statement stmt = con.createStatement();
+//                Statement stmt = con.createStatement();
                 for(String item: cart.keySet())
                 {
-                    String sql = "SELECT pet_id, price" +
+                    writer.println("\n"+item);
+                    String sql = "SELECT price" +
                             " FROM pet" +
                             " WHERE pet_id = '" + item + "';";
+                    Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(sql);
                     Integer qty = cart.get(item);
-                    while(rs.next())
-                    {
-                        stmt.executeUpdate("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last) VALUE ('"+curID+"','"+rs.getString("pet_id")+"','"+qty+"','"+rs.getFloat("price")+"','"+fname+"','"+lname+"')");
+//                    String p_sql = "update Order set user_id=? , pet_id=?, qty=?, price=?,name_first=?,name_last=?";
+                    PreparedStatement pstmt = con.prepareStatement("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last,email,address_zipcode,address_state,address,card_number,expiration_MM,expiration_YY,shipping_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+                    pstmt.setInt(1,curID);
+                    pstmt.setString(2,item);
+                    pstmt.setInt(3,qty);
+                    while(rs.next()) {
+                        pstmt.setFloat(4, rs.getFloat("price"));
                     }
+                    pstmt.setString(5,fname);
+                    pstmt.setString(6,lname);
+                    pstmt.setString(7,email);
+                    pstmt.setString(8,zip);
+                    pstmt.setString(9,state);
+                    pstmt.setString(10,address);
+                    pstmt.setString(11,creditCard);
+                    pstmt.setString(12,expireMM);
+                    pstmt.setString(13,expireYY);
+                    pstmt.setString(14,shippingMethod);
+
+                    pstmt.executeUpdate();
+
+                    stmt.close();
+                    pstmt.close();
+
+
+
+//                    String sql = "SELECT price" +
+//                            " FROM pet" +
+//                            " WHERE pet_id = '" + item + "';";
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(sql);
+////                    float price = rs.getFloat("price");
+////                    stmt.close();
+////                    stmt = con.createStatement();
+//                    Integer qty = cart.get(item);
+//                    while(rs.next())
+//                    {
+////                        stmt.executeUpdate("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last) VALUE ('"+curID+"','"+rs.getString("pet_id")+"','"+qty+"','"+
+////                                rs.getFloat("price")+"','"+fname+"','"+lname+"')");
+//                        stmt.executeUpdate("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last) VALUE ('"+curID+"','"+item+"','"+qty+"','"+
+//                                "2','"+fname+"','"+lname+"')");
+//
+//                    }
+////                    stmt.close();
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
