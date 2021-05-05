@@ -91,13 +91,14 @@ public class HandleRating extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
 //            con.setAutoCommit(true);
-            String sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '6');";
-            Statement stmt = con.createStatement();
-            stmt.execute(sql);
             
-//            String pet_id = request.getParameter("pet_id");
-//            String user_id = request.getParameter("user_id");
-//            String stars = request.getParameter("stars");
+            Statement stmt = con.createStatement();
+//            String sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '6');";
+//            stmt.execute(sql);
+            
+            String pet_id = request.getParameter("pet_id");
+            String user_id = request.getParameter("user_id");
+            String stars = request.getParameter("stars");
             
 //            String sql = "INSERT INTO `Ratings` VALUES (3, 'asdf', 7);";
 //            stmt.execute(sql);
@@ -105,7 +106,9 @@ public class HandleRating extends HttpServlet {
 //            ResultSet rs = stmt.executeQuery(sql);
 //            ResultSet rs = stmt.executeQuery(sql);
             
-//            String sql = "INSERT INTO `Ratings` VALUES ('" + user_id + "', '" + pet_id + "', '" + stars + "');";
+            String sql = "INSERT INTO `Ratings` VALUES (" + user_id + ", '" + pet_id + "', " + stars + ");";
+            stmt.execute(sql);
+            
 //            sql = "UPDATE Ratings SET rating = " + stars + " WHERE user_id = '" + user_id + "' AND pet_id = '" + pet_id + "';";
 //            if (rs == null) {
 //                sql = "INSERT INTO `Ratings` VALUES ('" + user_id + "', '" + pet_id + "', '" + stars + "');";

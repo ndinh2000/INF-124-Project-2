@@ -108,36 +108,58 @@ public class Last5 extends HttpServlet {
                             "Latest Purchases:</h3>");
 //            
             writer.println("<script>\n" +
-            "            function handleRating(pet_id, stars) {\n" +
-            "                console.log(pet_id, stars);\n" +
-            "                let str = \"\";\n" +
-            "                for (let i = 5; i > stars; --i) {\n" +
-            "                    str = str + \"<i class=\\\"fa fa-star \\\" style=\\\"font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
-            "                }\n" +
-            "                for (let i = stars; i > 0; --i) {\n" +
-            "                    str = str + \"<i class=\\\"fa fa-star\\\" style=\\\"color: gold; font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
-            "                }\n" +
-            "                console.log(str);\n" +
-            
-            "let data = {\n" +
-                "                    pet_id: \"pet_id\",\n" +
-                "                    stars: \"stars\",\n" +
-                "                    user_id: 1,\n" +
-                "                };\n" +
-                "\n" +
-                "                fetch(\"/PA2/HandleRating\", {\n" +
-                "                    method: \"POST\", \n" +
-                "                    body: JSON.stringify(data)\n" +
-                "                    }).then(res => {\n" +
-                "                    console.log(\"Request complete! response:\", res);\n" +
-                "                });" +
-                    "                document.getElementById(pet_id).innerHTML = str;\n" +
-            "            }\n" +
-            "        </script>");
+"            function handleRating(user_id, pet_id, stars) {\n" +
+"                console.log(pet_id, stars);\n" +
+"                let str = \"\";\n" +
+"                for (let i = 5; i > stars; --i) {\n" +
+"                    str = str + \"<i class=\\\"fa fa-star \\\" style=\\\"font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
+"                }\n" +
+"                for (let i = stars; i > 0; --i) {\n" +
+"                    str = str + \"<i class=\\\"fa fa-star\\\" style=\\\"color: gold; font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
+"                }\n" +
+"                console.log(str);\n" +
+"                document.getElementById(pet_id).innerHTML = str;\n" +
+"\n" +
+"                let data = {\n" +
+"                    user_id: 0,\n" +
+"                    pet_id: \"pet_id\",\n" +
+"                    stars: 7\n" +
+"                };\n" +
+"\n" +
+"                let formData = new FormData();\n" +
+"                formData.append('user_id', user_id);\n" +
+"                formData.append('pet_id', pet_id);\n" +
+"                formData.append('stars', stars);\n" +
+"                let destination = \"/PA2/HandleRating?\";\n" +
+"                destination = destination + \"user_id=\" + user_id + \"&\";\n" +
+"                destination = destination + \"pet_id=\" + pet_id + \"&\";\n" +
+"                destination = destination + \"stars=\" + stars;\n" +
+"\n" +
+"                fetch(destination, {\n" +
+"                    method: \"POST\",\n" +
+"                    // body: JSON.stringify(data)\n" +
+"                    // }).then(res => {\n" +
+"                    // console.log(\"Request complete! response:\", res);\n" +
+"                });\n" +
+"\n" +
+"                // fetch(\"/PA2/HandleRating\", {\n" +
+"                //     method: \"POST\",\n" +
+"                //     body: formData,\n" +
+"                //     // body: JSON.stringify(data)\n" +
+"                //     // }).then(res => {\n" +
+"                //     // console.log(\"Request complete! response:\", res);\n" +
+"                // });\n" +
+"            }\n" +
+"        </script>");
 //            
             writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
             String imgPath = "";
             while (rs.next()) {
+//                writer.println("<form name=\"myform\" id=\"myform\" action=\"action.php\">");
+//                writer.println("<input type=\"text\" name=\"pet_id\" />");
+//                writer.println("<input type=\"number\" name=\"user_id\" />");
+//                writer.println("<input type=\"number\" name=\"stars\" />");
+//                writer.println("<input type=\"submit\" name=\"submit\" />");
                 writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
                 writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
                 writer.println("<div style=\"height: 275px;\">");
@@ -150,11 +172,11 @@ public class Last5 extends HttpServlet {
                 
                 String pet_id = rs.getString("pet_id");
                 writer.println("<div class=\"rate-container\" id=\"" + pet_id + "\">\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating('" + pet_id + "', 5)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating('" + pet_id + "', 4)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating('" + pet_id + "', 3)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating('" + pet_id + "', 2)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating('" + pet_id + "', 1)\"></i>\n" +
+                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 5)\"></i>\n" +
+                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 4)\"></i>\n" +
+                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 3)\"></i>\n" +
+                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 2)\"></i>\n" +
+                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 1)\"></i>\n" +
                         "        </div>");
                 
 //                writer.println("<div class=\"rate-container " + rs.getString("pet_id") + "\">" +
