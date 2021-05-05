@@ -44,62 +44,12 @@ public class Last5 extends HttpServlet {
 //                    + user_id +
                     " LIMIT 5";
             ResultSet rs = stmt.executeQuery(sql);
-//            con.setAutoCommit(true);
-//            String sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '6');";
-//            
-////            PreparedStatement preparedStatement = con.prepareStatement(sql);
-////            preparedStatement.setInt  (1, 1);
-////            preparedStatement.setString(2, "xz");
-////            preparedStatement.setInt  (3, 4);
-////            preparedStatement.setInt  (1, 5);
-////            preparedStatement.setString(2, "D102");
-////            preparedStatement.setInt  (3, 3);
-////            int rowsAffected = preparedStatement.executeUpdate();
-//            String sql = "UPDATE Ratings SET rating = '?' WHERE user_id = '?' AND pet_id = '?';";
-//            Statement stmt = con.createStatement();
-//            stmt.execute(sql);
-//            
-////            con.commit();
-//            
-//            con.close();
-//            con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-//                    + "petstore", "root", "root");
-            
-//            Statement stmt = con.createStatement();
-//            sql = "SELECT * FROM Ratings;";
-//            ResultSet rs = stmt.executeQuery(sql);
-            
-//            PrintWriter writer = response.getWriter();
-//            writer.println("<Html> <body>");
-//            writer.println("<p>");
-//            writer.println("this many rows got affected: " + rowsAffected);
-//            writer.println("this many rows got affected: ");
-//            writer.println("</p>");
-//            while (rs.next()) {
-//                writer.println("<div>");
-//                writer.println(rs.getInt("user_id"));
-//                writer.println("</div>");
-//                writer.println("<div>");
-//                writer.println(rs.getString("pet_id"));
-//                writer.println("</div>");
-//                writer.println("<div>");
-//                writer.println(rs.getInt("stars"));
-//                writer.println("</div>");
-//            }
-//            writer.println("</body></Html>");
-            
-
-
-//            String sql = "INSERT INTO `Ratings` (user_id, pet_id, rating) VALUES ('3', 'asdf', '7');";
-//            stmt.executeUpdate(sql);
 
             PrintWriter writer = response.getWriter();
             writer.println("<head>");
             writer.println("<p>");
-            writer.println(request.getContextPath() + "/myStyle.css");
             writer.println("</p>");
             writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() + "/myStyle.css' />\n");
-//            writer.println("<link rel='stylesheet' type='text/css' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />\n");
             writer.println("<link rel='stylesheet' type='text/css' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />\n");
             writer.println("</head>");
             writer.println("<Html> <body>");
@@ -109,27 +59,14 @@ public class Last5 extends HttpServlet {
 //            
             writer.println("<script>\n" +
 "            function handleRating(user_id, pet_id, stars) {\n" +
-"                console.log(pet_id, stars);\n" +
 "                let str = \"\";\n" +
 "                for (let i = 5; i > stars; --i) {\n" +
-"                    str = str + \"<i class=\\\"fa fa-star \\\" style=\\\"font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
+"                    str = str + \"<i class=\\\"fa fa-star \\\" style=\\\"font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(\" + user_id + \", this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
 "                }\n" +
 "                for (let i = stars; i > 0; --i) {\n" +
-"                    str = str + \"<i class=\\\"fa fa-star\\\" style=\\\"color: gold; font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
+"                    str = str + \"<i class=\\\"fa fa-star\\\" style=\\\"color: gold; font-size:24px; padding: 5px;\\\" onclick=\\\"handleRating(\" + user_id + \", this.parentNode.id,\" + i + \")\\\"></i>\\n\";\n" +
 "                }\n" +
-"                console.log(str);\n" +
 "                document.getElementById(pet_id).innerHTML = str;\n" +
-"\n" +
-"                let data = {\n" +
-"                    user_id: 0,\n" +
-"                    pet_id: \"pet_id\",\n" +
-"                    stars: 7\n" +
-"                };\n" +
-"\n" +
-"                let formData = new FormData();\n" +
-"                formData.append('user_id', user_id);\n" +
-"                formData.append('pet_id', pet_id);\n" +
-"                formData.append('stars', stars);\n" +
 "                let destination = \"/PA2/HandleRating?\";\n" +
 "                destination = destination + \"user_id=\" + user_id + \"&\";\n" +
 "                destination = destination + \"pet_id=\" + pet_id + \"&\";\n" +
@@ -137,29 +74,13 @@ public class Last5 extends HttpServlet {
 "\n" +
 "                fetch(destination, {\n" +
 "                    method: \"POST\",\n" +
-"                    // body: JSON.stringify(data)\n" +
-"                    // }).then(res => {\n" +
-"                    // console.log(\"Request complete! response:\", res);\n" +
 "                });\n" +
-"\n" +
-"                // fetch(\"/PA2/HandleRating\", {\n" +
-"                //     method: \"POST\",\n" +
-"                //     body: formData,\n" +
-"                //     // body: JSON.stringify(data)\n" +
-"                //     // }).then(res => {\n" +
-"                //     // console.log(\"Request complete! response:\", res);\n" +
-"                // });\n" +
 "            }\n" +
 "        </script>");
 //            
             writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
             String imgPath = "";
             while (rs.next()) {
-//                writer.println("<form name=\"myform\" id=\"myform\" action=\"action.php\">");
-//                writer.println("<input type=\"text\" name=\"pet_id\" />");
-//                writer.println("<input type=\"number\" name=\"user_id\" />");
-//                writer.println("<input type=\"number\" name=\"stars\" />");
-//                writer.println("<input type=\"submit\" name=\"submit\" />");
                 writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
                 writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
                 writer.println("<div style=\"height: 275px;\">");
@@ -178,35 +99,6 @@ public class Last5 extends HttpServlet {
                         "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 2)\"></i>\n" +
                         "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 1)\"></i>\n" +
                         "        </div>");
-                
-//                writer.println("<div class=\"rate-container " + rs.getString("pet_id") + "\">" +
-//                                "    <i class=\"fa fa-star \"></i>\n" +
-//                                "    <i class=\"fa fa-star \"></i>\n" +
-//                                "    <i class=\"fa fa-star \"></i>\n" +
-//                                "    <i class=\"fa fa-star \"></i>\n" +
-//                                "    <i class=\"fa fa-star \"></i>\n" +
-//                                "</div>");
-                
-//                writer.println("<div class=\"rating\">");
-//                writer.println("<input type=\"radio\" name=\"rating\" value=\"5\" id=\"5\" onchange=\"javascript:alert(5)\"><label for=\"5\">☆</label>");
-//                writer.println("<input type=\"radio\" name=\"rating\" value=\"4\" id=\"4\" onchange=\"javascript:alert(4)\"><label for=\"4\">☆</label>");
-//                writer.println("<input type=\"radio\" name=\"rating\" value=\"3\" id=\"3\" onchange=\"javascript:alert(3)\"><label for=\"3\">☆</label>");
-//                writer.println("<input type=\"radio\" name=\"rating\" value=\"2\" id=\"2\" onchange=\"javascript:alert(2)\" checked><label for=\"2\">☆</label>");
-//                writer.println("<input type=\"radio\" name=\"rating\" value=\"1\" id=\"1\" onchange=\"javascript:alert(1)\"><label for=\"1\">☆</label>");
-//                writer.println("</div>");
-
-//                writer.println("<div class=\"rate\">\n" +
-//                                "    <input type=\"radio\" id=\"star5\" name=\"rate\" value=\"5\" />\n" +
-//                                "    <label for=\"star5\" title=\"text\">5 stars</label>\n" +
-//                                "    <input type=\"radio\" id=\"star4\" name=\"rate\" value=\"4\" />\n" +
-//                                "    <label for=\"star4\" title=\"text\">4 stars</label>\n" +
-//                                "    <input type=\"radio\" id=\"star3\" name=\"rate\" value=\"3\" />\n" +
-//                                "    <label for=\"star3\" title=\"text\">3 stars</label>\n" +
-//                                "    <input type=\"radio\" id=\"star2\" name=\"rate\" value=\"2\" />\n" +
-//                                "    <label for=\"star2\" title=\"text\">2 stars</label>\n" +
-//                                "    <input type=\"radio\" id=\"star1\" name=\"rate\" value=\"1\" />\n" +
-//                                "    <label for=\"star1\" title=\"text\">1 star</label>\n" +
-//                                "  </div>");
                 
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");

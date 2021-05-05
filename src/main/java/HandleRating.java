@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ndinh
  */
+@WebServlet(urlPatterns = {"/HandleRating"})
 public class HandleRating extends HttpServlet {
 
     /**
@@ -71,7 +73,49 @@ public class HandleRating extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
+//                    + "petstore", "root", "root");
+//            Statement stmt = con.createStatement();
+//            
+//            String pet_id = request.getParameter("pet_id");
+//            String user_id = request.getParameter("user_id");
+//            String stars = request.getParameter("stars");
+//
+//            String sql = "DELETE FROM `Ratings` WHERE user_id = " + user_id + " AND pet_id = '" + pet_id + "'; ";
+//            stmt.executeUpdate(sql);
+//            stmt.close();
+//            
+//            stmt = con.createStatement();
+//            sql = "INSERT INTO `Ratings` VALUES (" + user_id + ", '" + pet_id + "', " + stars + ");";
+//            stmt.executeUpdate(sql);
+//            stmt.close();
+//            con.close();
+//            
+//            PrintWriter writer = response.getWriter();
+//            writer.println("<div>");
+//            writer.println("hi");
+//            writer.println("</div>");
+//            writer.println("<div>");
+//            writer.println(sql);
+//            writer.println("</div>");
+//            writer.println("<Html> <body>");
+//            writer.println("<div>");
+//            writer.println("user_id = " + user_id);
+//            writer.println("</div>");
+//            writer.println("<div>");
+//            writer.println("pet_id = " + pet_id);
+//            writer.println("</div>");
+//            writer.println("<div>");
+//            writer.println("stars = " + stars);
+//            writer.println("</div>");
+//            writer.println("</body> </Html> ");
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -90,63 +134,21 @@ public class HandleRating extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "root");
-//            con.setAutoCommit(true);
-            
             Statement stmt = con.createStatement();
-//            String sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '6');";
-//            stmt.execute(sql);
             
             String pet_id = request.getParameter("pet_id");
             String user_id = request.getParameter("user_id");
             String stars = request.getParameter("stars");
-            
-//            String sql = "INSERT INTO `Ratings` VALUES (3, 'asdf', 7);";
-//            stmt.execute(sql);
-//            String sql = "SELECT rating FROM Rating WHERE pet_id = " + pet_id + " AND user_id = " + user_id + ";";
-//            ResultSet rs = stmt.executeQuery(sql);
-//            ResultSet rs = stmt.executeQuery(sql);
-            
-            String sql = "INSERT INTO `Ratings` VALUES (" + user_id + ", '" + pet_id + "', " + stars + ");";
-            stmt.execute(sql);
-            
-//            sql = "UPDATE Ratings SET rating = " + stars + " WHERE user_id = '" + user_id + "' AND pet_id = '" + pet_id + "';";
-//            if (rs == null) {
-//                sql = "INSERT INTO `Ratings` VALUES ('" + user_id + "', '" + pet_id + "', '" + stars + "');";
-//            } else {
-//                sql = "UPDATE Ratings SET rating = " + stars + " WHERE user_id = '" + user_id + "' AND pet_id = '" + pet_id + "';";
-////                sql = "UPDATE Ratings SET rating = " + stars + " WHERE user_id = 1 AND pet_id = '" + pet_id + "';";
-//            }
-//            String sql = "UPDATE Ratings SET rating = " + stars + " WHERE user_id = 1 AND pet_id = '" + pet_id + "';";
-//            String sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '6');";
-//            sql = "INSERT INTO `Ratings` VALUES ('2', 'D101', '7');";
-//            String sql = "INSERT INTO `Ratings` VALUES ('1', 'D999', '7');";
-//            Connection con2 = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-//                    + "petstore", "root", "root");
-//            Statement stmt2 = con.createStatement();
-//            stmt2.execute(sql);
-//            stmt.execute(sql);
 
-//            PreparedStatement preparedStatement = con.prepareStatement(sql);
-
-//            preparedStatement.setString(1, user_id);
-//            preparedStatement.setString(2, pet_id);
-//            preparedStatement.setLong  (3, 7);
-
-//            preparedStatement.executeUpdate();
-//            Statement stmt = con.createStatement();
-//            stmt = con.createStatement();
-//            stmt.execute(sql);
-//            stmt.execute(sql);
+            String sql = "DELETE FROM `Ratings` WHERE user_id = " + user_id + " AND pet_id = '" + pet_id + "'; ";
+            stmt.executeUpdate(sql);
+            stmt.close();
             
-//            stmt.executeUpdate(sql);
-//            PrintWriter out = response.getWriter();
-//            response.setContentType("application/json");
-//            response.setCharacterEncoding("UTF-8");
-//            out.print(pet_id);
-//            out.print(user_id);
-//            out.print(stars);
-//            out.flush();
-
+            stmt = con.createStatement();
+            sql = "INSERT INTO `Ratings` VALUES (" + user_id + ", '" + pet_id + "', " + stars + ");";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            con.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
