@@ -244,7 +244,7 @@ img {
     opacity: 0.4
 }
 
-.rate-container {
+.rate-container{
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -259,7 +259,12 @@ img {
     color: gold;
 }
 
-.star {
-    font-size: 48px;
-    padding: 5px;
+.rate-container-fixed {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.rate-container-fixed > i {
+    color: grey;
 }

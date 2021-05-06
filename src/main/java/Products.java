@@ -43,10 +43,11 @@ public class Products extends HttpServlet {
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
             String sql = "SELECT pet_id,name, age, gender, price, SUBSTRING(message, 1, 65) AS message, profile_picture " +
-                    "FROM petstore.pet";
+                    "FROM petstore.pet;";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
+//            writer.println(sql);
             writer.println("<Html> <body>");
             writer.println("<div id=\"main\">");
             writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">" +
@@ -64,6 +65,10 @@ public class Products extends HttpServlet {
                         " - $" + rs.getString("price") + "</h3>");
                 writer.println("</a>");
                 writer.println("<p>"+ rs.getString("message") +"...</p>");
+                String url = "/GetRating?pet_id=" + rs.getString("pet_id");
+//                writer.println(url);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.include(request, response);
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
             }

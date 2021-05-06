@@ -60,6 +60,10 @@
         <servlet-name>HandleRating</servlet-name>
         <servlet-class>HandleRating</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetRating</servlet-name>
+        <servlet-class>GetRating</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>HandleRating</servlet-name>
         <url-pattern>/HandleRating</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetRating</servlet-name>
+        <url-pattern>/GetRating</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

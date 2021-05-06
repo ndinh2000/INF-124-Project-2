@@ -36,16 +36,15 @@ public class Last5 extends HttpServlet {
                     + "petstore", "root", "root");
             Statement stmt = con.createStatement();
             HttpSession session = request.getSession(true);
-            String user_id = (String) session.getAttribute("user_id");
-            String sql = "SELECT p.pet_id,p.name, p.profile_picture, p.price" +
-                    " FROM pet p, orders o" +
-                    " WHERE p.pet_id = o.pet_id" +
-                    " AND o.user_id = 1" +
-//                    + user_id +
-                    " LIMIT 5";
+            String user_id = (session.getAttribute("user_id")).toString();
+            PrintWriter writer = response.getWriter();
+            
+            String sql = "SELECT DISTINCT p.pet_id, p.name, p.profile_picture, p.price, r.rating " +
+                        "FROM orders o, (pet p LEFT JOIN ratings r ON p.pet_id = r.pet_id AND r.user_id = " + user_id + ")" +
+                        "WHERE p.pet_id = o.pet_id AND o.user_id = " + user_id + " LIMIT 5;";
+            
             ResultSet rs = stmt.executeQuery(sql);
 
-            PrintWriter writer = response.getWriter();
             writer.println("<head>");
             writer.println("<p>");
             writer.println("</p>");
@@ -75,6 +74,7 @@ public class Last5 extends HttpServlet {
 "                fetch(destination, {\n" +
 "                    method: \"POST\",\n" +
 "                });\n" +
+                    "window.href.location = \"/PA2\"" + 
 "            }\n" +
 "        </script>");
 //            
@@ -92,13 +92,28 @@ public class Last5 extends HttpServlet {
                 writer.println("</a>");
                 
                 String pet_id = rs.getString("pet_id");
-                writer.println("<div class=\"rate-container\" id=\"" + pet_id + "\">\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 5)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 4)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 3)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 2)\"></i>\n" +
-                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 1)\"></i>\n" +
-                        "        </div>");
+                int stars = rs.getInt("rating");
+                writer.println("<div>");
+//                writer.println("pet_id = " + pet_id + "\n");
+//                writer.println("stars = " + stars + "\n");
+                writer.println("</div>");
+                writer.println("<div class=\"rate-container\" id=\"" + pet_id + "\">");
+                for (int i = 5; i > stars; --i) {
+                    writer.println("<i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(" + user_id + ", '" + pet_id + "', " + i + ")\"></i>");
+                }
+                for (int i = stars; i > 0; --i) {
+                    writer.println("<i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px; color: gold\" onclick=\"handleRating(" + user_id + ", '" + pet_id + "', " + i + ")\"></i>");
+                }
+                writer.println("</div>");
+                
+                /* Static stars, for reference */
+//                writer.println("<div class=\"rate-container\" id=\"" + pet_id + "\">\n" +
+//                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 5)\"></i>\n" +
+//                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 4)\"></i>\n" +
+//                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 3)\"></i>\n" +
+//                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 2)\"></i>\n" +
+//                        "            <i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px;\" onclick=\"handleRating(0, '" + pet_id + "', 1)\"></i>\n" +
+//                        "        </div>");
                 
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
@@ -106,6 +121,7 @@ public class Last5 extends HttpServlet {
             writer.println("</div>"); //for class=row
             writer.println("</div>"); //for id= main
             writer.println("</body> </Html> ");
+            stmt.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

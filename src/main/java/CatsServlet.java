@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -40,6 +41,7 @@ public class CatsServlet extends HttpServlet {
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop | Home</title>\n");
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() +  "/myStyle.css' />\n");
+            writer.println("<link rel='stylesheet' type='text/css' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />\n");
             writer.println("</head>"+
                     "<body>\n" +
                     "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
@@ -69,6 +71,9 @@ public class CatsServlet extends HttpServlet {
                         " - $" + rs.getString("price") + "</h3>");
                 writer.println("</a>");
                 writer.println("<p>"+ rs.getString("message") +"...</p>");
+                String url = "/GetRating?pet_id=" + rs.getString("pet_id");
+                RequestDispatcher rd = req.getRequestDispatcher(url);
+                rd.include(req, resp);
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
             }

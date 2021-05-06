@@ -53,9 +53,10 @@ CREATE TABLE `Orders` (
                          CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
 );
 
-INSERT INTO `Orders` VALUES ('1', '1', 'D101');
-INSERT INTO `Orders` VALUES ('2', '1', 'D102');
-INSERT INTO `Orders` VALUES ('3', '1', 'C101');
+INSERT INTO `Orders` VALUES ('1', '0', 'D101');
+INSERT INTO `Orders` VALUES ('2', '0', 'D102');
+INSERT INTO `Orders` VALUES ('3', '0', 'C101');
+INSERT INTO `Orders` VALUES ('4', '1', 'C101');
 
 CREATE TABLE `Ratings` (
 	`user_id` int NOT NULL,
@@ -64,8 +65,10 @@ CREATE TABLE `Ratings` (
      CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
 );
 
-INSERT INTO `Ratings` VALUES ('1', 'D101', '4');
-INSERT INTO `Ratings` VALUES ('1', 'D102', '3');
+INSERT INTO `Ratings` VALUES ('0', 'D101', '4');
+INSERT INTO `Ratings` VALUES ('0', 'D102', '3');
+INSERT INTO `Ratings` VALUES ('0', 'C101', '3');
+INSERT INTO `Ratings` VALUES ('1', 'C101', '3');
 
 # Filling Pet Table below:
 

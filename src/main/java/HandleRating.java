@@ -36,29 +36,6 @@ public class HandleRating extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet HandleRating</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet HandleRating at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
-            Statement stmt = con.createStatement();
-            String sql = "INSERT INTO `Ratings` VALUES ('3', 'asdf', '7');";
-            stmt.executeUpdate(sql);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,6 +51,7 @@ public class HandleRating extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        /*  doGet method for debugging  */
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
 //            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
