@@ -44,8 +44,14 @@ public class ProductDetail extends HttpServlet {
         String pet_id = request.getParameter("pet_id");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
+
+            String dbName = "petstore";
+            String userName = System.getenv("RDS_USERNAME");
+            String password = System.getenv("RDS_PASSWORD");
+            String hostname = System.getenv("RDS_HOSTNAME");
+            String port = System.getenv("RDS_PORT");
+            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+            Connection con = DriverManager.getConnection(jdbcUrl);
             Statement stmt = con.createStatement();
             String sql = "SELECT name, age,gender,price,pet_id,message,profile_picture FROM pet "
                     + "WHERE pet_id = '" + pet_id + "';";
@@ -57,7 +63,7 @@ public class ProductDetail extends HttpServlet {
                     "    <meta charset=\"UTF-8\">\n" +
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop</title>\n");
-            writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' />");
+            writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' /></head>");
 
             response.setContentType("text/html;charset=UTF-8");
             String url1 = "/titleHeader";
@@ -104,6 +110,7 @@ public class ProductDetail extends HttpServlet {
 //                writer.println("<button action='/AddToCart/" + petID + "'>Add to Cart</button>");
             }
             writer.println("</body> </Html> ");
+            stmt.close();
 //
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

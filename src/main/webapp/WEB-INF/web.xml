@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>HelloServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>JoinListServlet</servlet-name>
-        <servlet-class>JoinListServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ShowListServlet</servlet-name>
-        <servlet-class>ShowListServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ShowPet</servlet-name>
-        <servlet-class>ShowPet</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>DisplayImage</servlet-name>
         <servlet-class>DisplayImage</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Welcome</servlet-name>
-        <servlet-class>Welcome</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Products</servlet-name>
@@ -56,30 +37,38 @@
         <servlet-name>Checkout</servlet-name>
         <servlet-class>Checkout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>OrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>titleHeader</servlet-name>
+        <servlet-class>titleHeader</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandleRating</servlet-name>
+        <servlet-class>HandleRating</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetRating</servlet-name>
+        <servlet-class>GetRating</servlet-class>
+    </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/HelloServlet</url-pattern>
+        <servlet-name>titleHeader</servlet-name>
+        <url-pattern>/titleHeader</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>JoinListServlet</servlet-name>
-        <url-pattern>/JoinListServlet</url-pattern>
+        <servlet-name>HandleRating</servlet-name>
+        <url-pattern>/HandleRating</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShowListServlet</servlet-name>
-        <url-pattern>/ShowListServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowPet</servlet-name>
-        <url-pattern>/ShowPet</url-pattern>
+        <servlet-name>GetRating</servlet-name>
+        <url-pattern>/GetRating</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DisplayImage</servlet-name>
         <url-pattern>/images/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Welcome</servlet-name>
-        <url-pattern>/Welcome</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Products</servlet-name>
@@ -112,6 +101,10 @@
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>
         <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/OrderDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

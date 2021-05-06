@@ -31,10 +31,17 @@ public class ShowPet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "anqizhong1999.");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String dbName = "petstore";
+            String userName = System.getenv("RDS_USERNAME");
+            String password = System.getenv("RDS_PASSWORD");
+            String hostname = System.getenv("RDS_HOSTNAME");
+            String port = System.getenv("RDS_PORT");
+            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+            Connection con = DriverManager.getConnection(jdbcUrl);
             Statement stmt = con.createStatement();
+
             String sql = "SELECT name, profile_picture FROM petstore.pet";
             ResultSet rs = stmt.executeQuery(sql);
 

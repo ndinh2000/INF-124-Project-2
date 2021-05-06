@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -42,7 +43,7 @@ public class Checkout extends HttpServlet {
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
-        Integer curID = (Integer) session.getAttribute("curID");
+        Integer curID = (Integer)session.getAttribute("user_id");
         HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
 //        if (cart == null) {
 //            // Add the newly created ArrayList to session, so that it could be retrieved next time
@@ -56,8 +57,14 @@ public class Checkout extends HttpServlet {
         synchronized (cart) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                        + "petstore", "root", "root");
+
+                String dbName = "petstore";
+                String userName = System.getenv("RDS_USERNAME");
+                String password = System.getenv("RDS_PASSWORD");
+                String hostname = System.getenv("RDS_HOSTNAME");
+                String port = System.getenv("RDS_PORT");
+                String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+                Connection con = DriverManager.getConnection(jdbcUrl);
                 String fname = request.getParameter("fname");
                 String lname = request.getParameter("lname");
                 String phone = request.getParameter("phone");
@@ -70,24 +77,24 @@ public class Checkout extends HttpServlet {
                 String zip = request.getParameter("zip");
                 String shippingMethod = request.getParameter("shipping-method");
 
-                PrintWriter writer = response.getWriter();
-                writer.println(curID);
-                writer.println(fname);
-                writer.println(lname);
-                writer.println(phone);
-                writer.println(email);
-                writer.println(creditCard);
-                writer.println(expireMM);
-                writer.println(expireYY);
-                writer.println(address);
-                writer.println(state);
-                writer.println(zip);
-                writer.println(shippingMethod);
+//                PrintWriter writer = response.getWriter();
+//                writer.println(curID);
+//                writer.println(fname);
+//                writer.println(lname);
+//                writer.println(phone);
+//                writer.println(email);
+//                writer.println(creditCard);
+//                writer.println(expireMM);
+//                writer.println(expireYY);
+//                writer.println(address);
+//                writer.println(state);
+//                writer.println(zip);
+//                writer.println(shippingMethod);
 
 //                Statement stmt = con.createStatement();
                 for(String item: cart.keySet())
                 {
-                    writer.println("\n"+item);
+//                    writer.println("\n"+item);
                     String sql = "SELECT price" +
                             " FROM pet" +
                             " WHERE pet_id = '" + item + "';";
@@ -95,7 +102,7 @@ public class Checkout extends HttpServlet {
                     ResultSet rs = stmt.executeQuery(sql);
                     Integer qty = cart.get(item);
 //                    String p_sql = "update Order set user_id=? , pet_id=?, qty=?, price=?,name_first=?,name_last=?";
-                    PreparedStatement pstmt = con.prepareStatement("INSERT INTO `Order`(user_id,pet_id,qty,price,name_first,name_last,email,address_zipcode,address_state,address,card_number,expiration_MM,expiration_YY,shipping_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement pstmt = con.prepareStatement("INSERT INTO `Orders`(user_id,pet_id,qty,price,name_first,name_last,email,address_zipcode,address_state,address,card_number,expiration_MM,expiration_YY,shipping_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                     pstmt.setInt(1,curID);
                     pstmt.setString(2,item);
@@ -118,8 +125,6 @@ public class Checkout extends HttpServlet {
 
                     stmt.close();
                     pstmt.close();
-
-
 
 //                    String sql = "SELECT price" +
 //                            " FROM pet" +
@@ -144,6 +149,12 @@ public class Checkout extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        RequestDispatcher rd=request.getRequestDispatcher("/OrderDetail");
+        rd.forward(request, response);
+
+//        String url = "/OrderDetail";
+//        RequestDispatcher rd = request.getRequestDispatcher(url);
+//        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -185,6 +196,9 @@ public class Checkout extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        String url = "/OrderDetail";
+//        RequestDispatcher rd = request.getRequestDispatcher(url);
+//        rd.forward(request, response);
     }
 
     /**

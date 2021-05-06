@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -88,10 +89,15 @@ public class Cart extends HttpServlet {
 //                writer.println("<ul>");
                 writer.println("<h2 style='padding-left:2%;'>Your Cart:</h2>");
                 try {
-//                    writer.println("<i>Trying to connect to sql server</i>");
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                            + "petstore", "root", "root");
+
+                    String dbName = "petstore";
+                    String userName = System.getenv("RDS_USERNAME");
+                    String password = System.getenv("RDS_PASSWORD");
+                    String hostname = System.getenv("RDS_HOSTNAME");
+                    String port = System.getenv("RDS_PORT");
+                    String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+                    Connection con = DriverManager.getConnection(jdbcUrl);
                     Statement stmt = con.createStatement();
 //                    writer.println("<i>Connected to sql server</i>");
                     float total = 0;
@@ -162,7 +168,7 @@ public class Cart extends HttpServlet {
                             "                            <input type=\"text\" id=\"credit-card\" name=\"credit-card\" placeholder=\"VISA Only\" required><br><br>\n" +
                             "                            <label for=\"expiration-date\">Expiration Date: </label><br>\n" +
                             "                            <!-- <input type=\"datetime\" id=\"expiration-date\" name=\"expiration-date\" pattern=\"[0-9]{2}/[0-9]{4}\" placeholder=\"MM/YYYY\" required><br> -->\n" +
-                            "                            <select name='expireMM' id='expireMM'>\n" +
+                            "                            <select name='expireMM' id='expireMM' required>\n" +
                             "                                <option value=''>Month</option>\n" +
                             "                                <option value='01'>January</option>\n" +
                             "                                <option value='02'>February</option>\n" +
@@ -177,7 +183,7 @@ public class Cart extends HttpServlet {
                             "                                <option value='11'>November</option>\n" +
                             "                                <option value='12'>December</option>\n" +
                             "                            </select> \n" +
-                            "                            <select name='expireYY' id='expireYY'>\n" +
+                            "                            <select name='expireYY' id='expireYY' required>\n" +
                             "                                <option value=''>Year</option>\n" +
                             "                                <option value='21'>2021</option>\n" +
                             "                                <option value='22'>2022</option>\n" +
@@ -219,6 +225,7 @@ public class Cart extends HttpServlet {
             }
         }
         writer.println("</body> </Html> ");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

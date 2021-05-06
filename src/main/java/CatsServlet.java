@@ -1,7 +1,7 @@
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -25,8 +25,14 @@ public class CatsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
-                    + "petstore", "root", "root");
+
+            String dbName = "petstore";
+            String userName = System.getenv("RDS_USERNAME");
+            String password = System.getenv("RDS_PASSWORD");
+            String hostname = System.getenv("RDS_HOSTNAME");
+            String port = System.getenv("RDS_PORT");
+            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+            Connection con = DriverManager.getConnection(jdbcUrl);
             Statement stmt = con.createStatement();
             String sql = "SELECT pet_id,name, age, gender, price, SUBSTRING(message, 1, 65) AS message, " +
                     "profile_picture FROM petstore.pet WHERE pet_id LIKE 'C%'";
@@ -40,6 +46,7 @@ public class CatsServlet extends HttpServlet {
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop | Home</title>\n");
             writer.println("<link rel='stylesheet' type='text/css' href='" + req.getContextPath() +  "/myStyle.css' />\n");
+            writer.println("<link rel='stylesheet' type='text/css' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />\n");
             writer.println("</head>"+
                     "<body>\n" +
                     "    <div id=\"header\"><h1><img src=\"./images/Logo/shopLogo.png\"></h1></div>\n" +
@@ -69,6 +76,9 @@ public class CatsServlet extends HttpServlet {
                         " - $" + rs.getString("price") + "</h3>");
                 writer.println("</a>");
                 writer.println("<p>"+ rs.getString("message") +"...</p>");
+                String url = "/GetRating?pet_id=" + rs.getString("pet_id");
+                RequestDispatcher rd = req.getRequestDispatcher(url);
+                rd.include(req, resp);
                 writer.println("<hr class=\"solid\">");
                 writer.println("</div>");
             }
