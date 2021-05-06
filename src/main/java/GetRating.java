@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,25 +6,24 @@
  */
 
 import java.io.IOException;
-import java.io.*;
-import java.io.File;
 import java.io.PrintWriter;
-import java.io.OutputStream;
-import javax.servlet.ServletOutputStream;
-import java.sql.*;
-import javax.servlet.annotation.WebServlet;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 
 /**
  *
  * @author ndinh
  */
-public class Products extends HttpServlet {
+@WebServlet(urlPatterns = {"/GetRating"})
+public class GetRating extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,39 +42,32 @@ public class Products extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
                     + "petstore", "root", "anqizhong1999.");
             Statement stmt = con.createStatement();
-            String sql = "SELECT pet_id,name, age, gender, price, SUBSTRING(message, 1, 65) AS message, profile_picture " +
-                    "FROM petstore.pet;";
+            String pet_id = request.getParameter("pet_id");
+            String sql = "SELECT rating FROM ratings WHERE pet_id = '" + pet_id + "';";
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = response.getWriter();
-//            writer.println(sql);
-            writer.println("<Html> <body>");
-            writer.println("<div id=\"main\">");
-            writer.println("<h3 style=\"text-align: left;font-size: 1.5em;margin-left: 34px;margin-bottom: 0;\">" +
-                    "Available Pets:</h3>");
-            writer.println("<div class=\"row\" style=\"padding-top: 0;\">");
-            String imgPath = "";
+            int total = 0, count = 0;
             while (rs.next()) {
-                writer.println("<div class=\"col-3 col-s-5 featuredPets\">");
-                writer.println("<a href=\"/PA2/ProductDetail?pet_id=" + rs.getString("pet_id") + "\">");
-                writer.println("<div style=\"height: 275px;\">");
-                imgPath = rs.getString("profile_picture");
-                writer.println("<img src="+ imgPath +">");
-                writer.println("</div>"); //for style=height
-                writer.println("<h3>" + rs.getString("name") +
-                        " - $" + rs.getString("price") + "</h3>");
-                writer.println("</a>");
-                writer.println("<p>"+ rs.getString("message") +"...</p>");
-                String url = "/GetRating?pet_id=" + rs.getString("pet_id");
-//                writer.println(url);
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.include(request, response);
-                writer.println("<hr class=\"solid\">");
-                writer.println("</div>");
+                total += rs.getFloat("rating");
+                ++count;
             }
-            writer.println("</div>"); //for class=row
-            writer.println("</div>"); //for id= main
-            writer.println("</body> </Html> ");
+
+            writer.println("<div class=\"rate-container-fixed\" style=\"height:35px; display: flex; flex-direction: row-reverse; justify-content: center;\">");
+            if (count > 0) {
+                int stars = (int) Math.round((double) total / (double) count);
+                for (int i = 5; i > stars; --i) {
+                    writer.println("<i class=\"fa fa-star \" style=\"font-size:24px; padding: 5px; color: grey\"></i>");
+                }
+                for (int i = stars; i > 0; --i) {
+                    writer.println("<i class=\"fa fa-star \" style=\"color: gold; font-size:24px; padding: 5px;\"></i>");
+                }
+            } else {
+                writer.println("No Review Yet");
+            }
+            writer.println("</div>");
+            writer.println("</body> </Html>");
+            stmt.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

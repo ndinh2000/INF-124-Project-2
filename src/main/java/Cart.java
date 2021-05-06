@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -162,7 +163,7 @@ public class Cart extends HttpServlet {
                             "                            <input type=\"text\" id=\"credit-card\" name=\"credit-card\" placeholder=\"VISA Only\" required><br><br>\n" +
                             "                            <label for=\"expiration-date\">Expiration Date: </label><br>\n" +
                             "                            <!-- <input type=\"datetime\" id=\"expiration-date\" name=\"expiration-date\" pattern=\"[0-9]{2}/[0-9]{4}\" placeholder=\"MM/YYYY\" required><br> -->\n" +
-                            "                            <select name='expireMM' id='expireMM'>\n" +
+                            "                            <select name='expireMM' id='expireMM' required>\n" +
                             "                                <option value=''>Month</option>\n" +
                             "                                <option value='01'>January</option>\n" +
                             "                                <option value='02'>February</option>\n" +
@@ -177,7 +178,7 @@ public class Cart extends HttpServlet {
                             "                                <option value='11'>November</option>\n" +
                             "                                <option value='12'>December</option>\n" +
                             "                            </select> \n" +
-                            "                            <select name='expireYY' id='expireYY'>\n" +
+                            "                            <select name='expireYY' id='expireYY' required>\n" +
                             "                                <option value=''>Year</option>\n" +
                             "                                <option value='21'>2021</option>\n" +
                             "                                <option value='22'>2022</option>\n" +
@@ -219,6 +220,7 @@ public class Cart extends HttpServlet {
             }
         }
         writer.println("</body> </Html> ");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

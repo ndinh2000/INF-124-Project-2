@@ -13,16 +13,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "HomeServlet", value="/HomeServlet")
 public class HomeServlet extends HttpServlet {
 
-
-    private int id=0;
+    private static int id = 0;
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             getID(req, resp);
-            resp.setContentType("text/html;charset=UTF-8");
-            String url1 = "/Last5";
-            String url2 = "/Products";
-
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/"
@@ -33,6 +28,7 @@ public class HomeServlet extends HttpServlet {
 
 
             PrintWriter writer = resp.getWriter();
+            resp.setContentType("text/html;charset=UTF-8");
             writer.println("<!DOCTYPE html><html lang=\"en\">\n" +
                     "<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
@@ -54,38 +50,39 @@ public class HomeServlet extends HttpServlet {
 
             writer.println("</html>");
 
+            String url1 = "/Last5";
+            String url2 = "/Products";
             RequestDispatcher rd = req.getRequestDispatcher(url1);
             rd.include(req, resp);
             rd = req.getRequestDispatcher(url2);
             rd.include(req, resp);
 
-
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
+
     private synchronized void getID(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
-        Integer curID = (Integer) session.getAttribute("curID");
+        Integer user_id = (Integer) session.getAttribute("user_id");
 
         String heading;
 
-        if (curID == null) {
-            session.setAttribute("curID", this.id);
+        if (user_id == null) {
+            session.setAttribute("user_id", this.id);
             ++this.id;
             heading = "Welcome, New-Comer, your ID is "
-                    + session.getAttribute("curID")
+                    + session.getAttribute("user_id")
                     + ", nextID is " + this.id;
         } else {
             heading = "Welcome Back, your ID is "
-                    + session.getAttribute("curID")
+                    + session.getAttribute("user_id")
                     + ", nextID is " + this.id;
         }
 
+        /*  Print out heading for debugging  */
         PrintWriter out = response.getWriter();
         out.println(heading);
     }

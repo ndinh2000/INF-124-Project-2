@@ -46,7 +46,7 @@ CREATE TABLE `Pet` (
 #                          CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
 # );
 
-CREATE TABLE `Order`(
+CREATE TABLE `Orders`(
                         `order_id` int NOT NULL AUTO_INCREMENT,
                         `user_id` int NOT NULL,
                         `pet_id` varchar(10) NOT NULL,
@@ -64,18 +64,30 @@ CREATE TABLE `Order`(
                          shipping_method enum('ground', 'overnight', 'two_days'),
                         PRIMARY KEY (`order_id`)
 );
-
-CREATE TABLE `Orders` (
-                         `order_id` int NOT NULL AUTO_INCREMENT,
-                         `user_id` int NOT NULL,
-                         `pet_id` varchar(10) NOT NULL,
-                         PRIMARY KEY (`order_id`),
-                         CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
+CREATE TABLE `Ratings` (
+                           `user_id` int NOT NULL,
+                           `pet_id` varchar(10) NOT NULL,
+                           `rating` int NOT NULL,
+                           CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
 );
 
-INSERT INTO `Orders` VALUES ('1', '1', 'D101');
-INSERT INTO `Orders` VALUES ('2', '1', 'D102');
-INSERT INTO `Orders` VALUES ('3', '1', 'C101');
+INSERT INTO `Ratings` VALUES ('0', 'D101', '4');
+INSERT INTO `Ratings` VALUES ('0', 'D102', '3');
+INSERT INTO `Ratings` VALUES ('0', 'C101', '3');
+INSERT INTO `Ratings` VALUES ('1', 'C101', '3');
+
+
+# CREATE TABLE `Orders` (
+#                          `order_id` int NOT NULL AUTO_INCREMENT,
+#                          `user_id` int NOT NULL,
+#                          `pet_id` varchar(10) NOT NULL,
+#                          PRIMARY KEY (`order_id`),
+#                          CONSTRAINT `order_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `Pet` (`pet_id`) ON DELETE NO ACTION
+# );
+#
+# INSERT INTO `Orders` VALUES ('1', '1', 'D101');
+# INSERT INTO `Orders` VALUES ('2', '1', 'D102');
+# INSERT INTO `Orders` VALUES ('3', '1', 'C101');
 
 # CREATE TABLE `ShopLogo` (
 #                        `shop_logo` varchar(2048) NOT NULL

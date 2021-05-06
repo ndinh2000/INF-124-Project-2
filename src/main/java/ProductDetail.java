@@ -57,7 +57,7 @@ public class ProductDetail extends HttpServlet {
                     "    <meta charset=\"UTF-8\">\n" +
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
                     "    <title>The Pet Shop</title>\n");
-            writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' />");
+            writer.println("<link rel='stylesheet' type='text/css' href='" + request.getContextPath() +  "/myStyle.css' /></head>");
 
             response.setContentType("text/html;charset=UTF-8");
             String url1 = "/titleHeader";
@@ -104,6 +104,7 @@ public class ProductDetail extends HttpServlet {
 //                writer.println("<button action='/AddToCart/" + petID + "'>Add to Cart</button>");
             }
             writer.println("</body> </Html> ");
+            stmt.close();
 //
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
