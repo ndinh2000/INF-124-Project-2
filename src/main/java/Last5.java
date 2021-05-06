@@ -34,13 +34,14 @@ public class Last5 extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             String dbName = "petstore";
-            String userName = System.getenv("RDS_USERNAME");
-            String password = System.getenv("RDS_PASSWORD");
-            String hostname = System.getenv("RDS_HOSTNAME");
-            String port = System.getenv("RDS_PORT");
+            String userName = System.getProperty("RDS_USERNAME");
+            String password = System.getProperty("RDS_PASSWORD");
+            String hostname = System.getProperty("RDS_HOSTNAME");
+            String port = System.getProperty("RDS_PORT");
             String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
             Connection con = DriverManager.getConnection(jdbcUrl);
             Statement stmt = con.createStatement();
+
             HttpSession session = request.getSession(true);
             String user_id = (session.getAttribute("user_id")).toString();
             PrintWriter writer = response.getWriter();
