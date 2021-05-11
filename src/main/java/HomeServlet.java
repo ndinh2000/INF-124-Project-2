@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "HomeServlet", value="/HomeServlet")
 public class HomeServlet extends HttpServlet {
 
-    private static int id = 0;
+    private int id = 0;
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -72,7 +72,7 @@ public class HomeServlet extends HttpServlet {
 
         if (user_id == null) {
             session.setAttribute("user_id", this.id);
-            ++this.id;
+            this.id++;
             heading = "Welcome, New-Comer, your ID is "
                     + session.getAttribute("user_id")
                     + ", nextID is " + this.id;

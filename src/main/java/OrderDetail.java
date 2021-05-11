@@ -90,6 +90,7 @@ public class OrderDetail extends HttpServlet {
                 break;
             }
             float price_total = 0;
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 writer.println("<div>Pet Id: "+rs.getString("pet_id")+"\n"+
                         "Quantity: "+ rs.getInt("qty")+"\n"+

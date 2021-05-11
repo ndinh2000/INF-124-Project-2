@@ -69,7 +69,7 @@ public class Cart extends HttpServlet {
                 "            <li><a href=./CatsServlet><h3> Cats </h3></a></li>\n" +
                 "            <li><a href=./ContactServlet><h3> Contact </h3></a></li>\n" +
                 //Trying below for now
-                "<li><a href=./Products><h3> Latest Purchases </h3></a></li>\n" +
+//                "<li><a href=./Products><h3> Latest Purchases </h3></a></li>\n" +
                 "        </ul>\n" +
                 "    </div>\n");
 //                "</body>\n");
