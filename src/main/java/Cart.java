@@ -144,7 +144,7 @@ public class Cart extends HttpServlet {
                             "                Order Information\n" +
                             "            </legend>\n" +
                             "            <div class=\"col-12\" style=\"text-align: left\">\n" +
-                            "                <form action=/PA2/Checkout method='post'> \n" +
+                            "                <form action=/PA2/Checkout method='post' onSubmit='return (checkRegistration())'> \n" +
                             "                    <div class=\"row\">\n" +
                             "                        <div class=\"col-2\" style=\"text-align: left\"> \n" +
                             "                            <label for=\"fname\">First Name: </label><br>\n" +
